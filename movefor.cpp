@@ -1,4 +1,6 @@
-map[x+1][y+2]=' ';
+int movefor(int**map,int*x,int*y)
+{
+            map[x+1][y+2]=' ';
             map[x+1][y+1]=' ';
             map[x][y]=' ';
             map[x+2][y-2]=' ';
@@ -20,3 +22,4 @@ map[x+1][y+2]=' ';
             map[x+1][y+1]='*';
             map[x+3][y-1]='*';
             map[x+3][y+1]='*';
+}
