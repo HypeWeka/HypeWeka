@@ -5,7 +5,7 @@
 #include <conio.h>
 #include <Windows.h>
 using namespace std;
-//проверка работы через терминал дома
+//СЌС‚Р° С…СѓР№РЅСЏ РЅРµ СЂРѕР±РёС‚
 void setMap(char **k, int *h, int *w,int x,int y)
 {
  
