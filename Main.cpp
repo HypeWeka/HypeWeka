@@ -5,7 +5,7 @@
 #include <conio.h>
 #include <Windows.h>
 using namespace std;
-//эта хуйня не робит
+// 
 void setMap(char **k, int *h, int *w,int x,int y)
 {
  
