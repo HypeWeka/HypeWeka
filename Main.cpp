@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <vector>
 #include <iostream>
 #include <time.h>
@@ -59,7 +60,7 @@ int main(){
         {
         clearscreen();
         printMap(map,&height, &width);
-        move=getch();
+        move=_getch();
         if(move == 'w'  && x>1)
         {
             map[x+1][y+2]=' ';
