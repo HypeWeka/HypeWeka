@@ -14,6 +14,7 @@ void setMap(char **k, int x, int y);
 void printscore(int ikf, int scr);
 void printMap(char **m, int ks);
 void clearscreen();
+void dvig (char **a);
 int main()
 {
 	int x = 8, y = 6;
@@ -131,6 +132,7 @@ int main()
 			map[x + 3][y + 1] = '*';
 		}
 		kscore++;
+		dvig(map);
 	}
 	return 0;
 }
@@ -222,7 +224,17 @@ void printMap(char **m, int ks)
 	}
 	printline();
 }
-
+void dvig(char **a)
+{
+	char last = a[height - 1][0];
+	for (int i = height - 1; i>0; i--)
+		a[i][0] = a[i - 1][0];
+	a[0][0] = last;
+	last = a[height - 1][width-1];
+	for (int i = height - 1; i>0; i--)
+		a[i][width - 1] = a[i - 1][width - 1];
+	a[0][width - 1] = last;
+}
 void clearscreen()
 {
 	HANDLE hOut;
