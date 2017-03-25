@@ -14,10 +14,10 @@ void setMap(char **k, int x, int y);
 void printscore(int ikf, int scr);
 void printMap(char **m, int ks);
 void clearscreen();
-void dvig (char **a);
+void dvig(char **a);
 int main()
 {
-	int x = 8, y = 6;
+	int x = 16, y = 3;
 	char** map = new char*[height];
 
 	for (int i = 0; i<height; i++)
@@ -33,104 +33,53 @@ int main()
 		clearscreen();
 		printMap(map, kscore);
 		move = _getch();
-		if (move == 'w'  && x>1)
-		{
-			map[x + 1][y + 2] = ' ';
-			map[x + 1][y + 1] = ' ';
-			map[x][y] = ' ';
-			map[x + 2][y - 2] = ' ';
-			map[x + 2][y - 1] = ' ';
-			map[x + 2][y + 2] = ' ';
-			map[x + 2][y + 1] = ' ';
-			map[x + 1][y] = ' ';
-			map[x + 2][y] = ' ';
-			map[x + 1][y - 1] = ' ';
-			map[x + 3][y] = ' ';
-			map[x + 4][y] = ' ';
-			map[x + 1][y + 1] = ' ';
-			map[x + 3][y - 1] = ' ';
-			map[x + 3][y + 1] = ' ';
-			map[--x][y] = '*';
-			map[x + 1][y] = '*';
-			map[x + 2][y] = '*';
-			map[x + 1][y - 1] = '*';
-			map[x + 1][y + 1] = '*';
-			map[x + 3][y - 1] = '*';
-			map[x + 3][y + 1] = '*';
-		}
-		if (move == 's' && x<height - 6)
-		{
-			map[x][y] = ' ';
-			map[x + 2][y - 2] = ' ';
-			map[x + 2][y - 1] = ' ';
-			map[x + 2][y + 2] = ' ';
-			map[x + 2][y + 1] = ' ';
-			map[x + 1][y + 2] = ' ';
-			map[x + 1][y + 1] = ' ';
-			map[x + 1][y] = ' ';
-			map[x + 2][y] = ' ';
-			map[x + 1][y - 1] = ' ';
-			map[x + 1][y + 1] = ' ';
-			map[x + 3][y - 1] = ' ';
-			map[x + 3][y + 1] = ' ';
-			map[++x][y] = ' ';
-			map[x + 3][y] = '*';
-			map[x + 4][y] = '*';
-			map[x + 2][y] = '*';
-			map[x + 1][y - 1] = '*';
-			map[x + 1][y + 1] = '*';
-			map[x + 3][y - 1] = '*';
-			map[x + 3][y + 1] = '*';
-		}
+
 		if (move == 'd' && y<width - 5)
 		{
-			map[x + 1][y + 2] = ' ';
-			map[x + 1][y + 1] = ' ';
+			for (int u = 2; u >= -1; u--)
+				map[x + 3][y - u] = ' ';
+			map[x + 1][y - 1] = ' ';
+			map[x + 3][y - 1] = ' ';
 			map[x][y] = ' ';
-			map[x + 2][y - 2] = ' ';
-			map[x + 2][y - 1] = ' ';
 			map[x + 1][y] = ' ';
 			map[x + 2][y] = ' ';
-			map[x + 1][y - 1] = ' ';
-			map[x + 3][y] = ' ';
-			map[x + 4][y] = ' ';
 			map[x + 1][y + 1] = ' ';
-			map[x + 3][y - 1] = ' ';
 			map[x + 3][y + 1] = ' ';
-			map[x][++y] = ' ';
-			map[x + 1][y] = ' ';
-			map[x + 2][y + 2] = '*';
-			map[x + 2][y + 1] = '*';
-			map[x + 2][y] = '*';
-			map[x + 1][y - 1] = '*';
-			map[x + 1][y + 1] = '*';
-			map[x + 3][y - 1] = '*';
-			map[x + 3][y + 1] = '*';
+			map[x + 1][y + 2] = '*';
+			map[x + 3][y + 2] = '*';
+			map[x][y + 3] = '*';
+			map[x + 1][y + 3] = '*';
+			map[x + 2][y + 3] = '*';
+			map[x + 1][y + 4] = '*';
+			map[x + 3][y + 4] = '*';
+			y += 3;
 		}
 
-		if (move == 'a' && y>3)
+		if (move == 'a' && y > width - 5)
 		{
-			map[x + 1][y + 2] = ' ';
+
 			map[x + 1][y + 1] = ' ';
+			map[x + 3][y + 1] = ' ';
 			map[x][y] = ' ';
 			map[x + 1][y] = ' ';
 			map[x + 2][y] = ' ';
 			map[x + 1][y - 1] = ' ';
-			map[x + 3][y] = ' ';
-			map[x + 4][y] = ' ';
-			map[x + 1][y + 1] = ' ';
 			map[x + 3][y - 1] = ' ';
-			map[x + 3][y + 1] = ' ';
-			map[x][--y] = ' ';
-			map[x + 1][y] = ' ';
-			map[x + 2][y - 2] = '*';
-			map[x + 2][y - 1] = '*';
-			map[x + 2][y] = '*';
-			map[x + 1][y - 1] = '*';
-			map[x + 1][y + 1] = '*';
-			map[x + 3][y - 1] = '*';
-			map[x + 3][y + 1] = '*';
+			map[x + 1][y - 4] = '*';
+			map[x + 3][y - 4] = '*';
+			map[x][y - 3] = '*';
+			map[x + 1][y - 3] = '*';
+			map[x + 2][y - 3] = '*';
+			map[x + 1][y - 2] = '*';
+			map[x + 3][y - 2] = '*';
+			for (int q = 1; q >= -2; q--)
+				for (int z = -3; z <= 0; z++)
+					map[x - z][y - q] = ' ';
+			y -= 3;
 		}
+
+
+		Sleep(50);
 		kscore++;
 		dvig(map);
 	}
@@ -230,7 +179,7 @@ void dvig(char **a)
 	for (int i = height - 1; i>0; i--)
 		a[i][0] = a[i - 1][0];
 	a[0][0] = last;
-	last = a[height - 1][width-1];
+	last = a[height - 1][width - 1];
 	for (int i = height - 1; i>0; i--)
 		a[i][width - 1] = a[i - 1][width - 1];
 	a[0][width - 1] = last;
