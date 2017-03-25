@@ -17,6 +17,7 @@ void clearscreen();
 void dvig(char **a);
 int main()
 {
+	setlocale(LC_ALL, "Russian");
 	int x = 16, y = 3;
 	char** map = new char*[height];
 
@@ -32,54 +33,56 @@ int main()
 	{
 		clearscreen();
 		printMap(map, kscore);
-		move = _getch();
-
-		if (move == 'd' && y<width - 5)
-		{
-			for (int u = 2; u >= -1; u--)
-				map[x + 3][y - u] = ' ';
-			map[x + 1][y - 1] = ' ';
-			map[x + 3][y - 1] = ' ';
-			map[x][y] = ' ';
-			map[x + 1][y] = ' ';
-			map[x + 2][y] = ' ';
-			map[x + 1][y + 1] = ' ';
-			map[x + 3][y + 1] = ' ';
-			map[x + 1][y + 2] = '*';
-			map[x + 3][y + 2] = '*';
-			map[x][y + 3] = '*';
-			map[x + 1][y + 3] = '*';
-			map[x + 2][y + 3] = '*';
-			map[x + 1][y + 4] = '*';
-			map[x + 3][y + 4] = '*';
-			y += 3;
-		}
-
-		if (move == 'a' && y > width - 5)
-		{
-
-			map[x + 1][y + 1] = ' ';
-			map[x + 3][y + 1] = ' ';
-			map[x][y] = ' ';
-			map[x + 1][y] = ' ';
-			map[x + 2][y] = ' ';
-			map[x + 1][y - 1] = ' ';
-			map[x + 3][y - 1] = ' ';
-			map[x + 1][y - 4] = '*';
-			map[x + 3][y - 4] = '*';
-			map[x][y - 3] = '*';
-			map[x + 1][y - 3] = '*';
-			map[x + 2][y - 3] = '*';
-			map[x + 1][y - 2] = '*';
-			map[x + 3][y - 2] = '*';
-			for (int q = 1; q >= -2; q--)
-				for (int z = -3; z <= 0; z++)
-					map[x - z][y - q] = ' ';
-			y -= 3;
-		}
-
-
 		Sleep(50);
+		if (_kbhit()) {
+			move = _getch();
+
+			if ((move == 'd' && y < width - 5) || (move == 'D' && y < width - 5))
+			{
+				for (int u = 2; u >= -1; u--)
+					map[x + 3][y - u] = ' ';
+				map[x + 1][y - 1] = ' ';
+				map[x + 3][y - 1] = ' ';
+				map[x][y] = ' ';
+				map[x + 1][y] = ' ';
+				map[x + 2][y] = ' ';
+				map[x + 1][y + 1] = ' ';
+				map[x + 3][y + 1] = ' ';
+				map[x + 1][y + 2] = '*';
+				map[x + 3][y + 2] = '*';
+				map[x][y + 3] = '*';
+				map[x + 1][y + 3] = '*';
+				map[x + 2][y + 3] = '*';
+				map[x + 1][y + 4] = '*';
+				map[x + 3][y + 4] = '*';
+				y += 3;
+			}
+
+			if ((move == 'a' && y > width - 5) || (move == 'A' && y > width - 5) )
+			{
+
+				map[x + 1][y + 1] = ' ';
+				map[x + 3][y + 1] = ' ';
+				map[x][y] = ' ';
+				map[x + 1][y] = ' ';
+				map[x + 2][y] = ' ';
+				map[x + 1][y - 1] = ' ';
+				map[x + 3][y - 1] = ' ';
+				map[x + 1][y - 4] = '*';
+				map[x + 3][y - 4] = '*';
+				map[x][y - 3] = '*';
+				map[x + 1][y - 3] = '*';
+				map[x + 2][y - 3] = '*';
+				map[x + 1][y - 2] = '*';
+				map[x + 3][y - 2] = '*';
+				for (int q = 1; q >= -2; q--)
+					for (int z = -3; z <= 0; z++)
+						map[x - z][y - q] = ' ';
+				y -= 3;
+			}
+		}
+		
+		
 		kscore++;
 		dvig(map);
 	}
