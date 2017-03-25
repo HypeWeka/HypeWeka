@@ -141,30 +141,21 @@ void setMap(char **k, int x, int y)
 	{
 		for (int j = 0; j<width; j++)
 		{
-			if (i == 0 || i == height - 1)
-			{
-				k[i][j] = ' ';
-				if (i == 0 && (j == 0 || j == 9))k[i][j] = '#';
-				if (i == height - 1 && (j == 0 || j == 9))k[i][j] = '#';
-			}
+
+			if (j == 0 || j == width - 1)
+				k[i][j] = '#';
 			else
-				if (j == 0 || j == width - 1)
-					k[i][j] = '#';
-				else
-					k[i][j] = ' ';
+				k[i][j] = ' ';
 
 		}
 	}
-
-	bool f = false;
-	for (int i = 0; i < height - 1; i++)
+	for (int i = 0; i < height - 2; i++)
 	{
 
-		if (i % 4 == 0 && i != 0) f = true;
-		if (f == true)
+		if (i % 4 == 0)
 		{
-			k[i][0] = ' '; k[i + 1][9] = ' ';
-			f = false;
+			k[i][0] = ' ';
+			k[i + 1][9] = ' ';
 		}
 
 	}
@@ -213,7 +204,11 @@ void printscore(int ikf, int scr)
 		break;
 	}
 }
-
+void printline()
+{
+	string s = "==========";
+	cout << s;
+}
 void printMap(char **m, int ks)
 {
 	for (int i = 0; i<height; i++)
@@ -225,6 +220,7 @@ void printMap(char **m, int ks)
 		printscore(i, ks);
 		cout << endl;
 	}
+	printline();
 }
 
 void clearscreen()
