@@ -19,7 +19,7 @@ void add_car(char **a);
 void dvig_car(char **a);
 int main()
 {
-	WM_KEYDOWN;
+	
 	setlocale(LC_ALL, "Russian");
 	int x = 20, y = 3;
 	char** map = new char*[height+4];
