@@ -7,7 +7,7 @@
 #include <Windows.h>
 #include <string>
 using namespace std;
-#define LEFT 1E;
+
 const int height = 20, width = 10;
 
 void setMap(char **k, int x, int y);
@@ -17,9 +17,9 @@ void clearscreen();
 void dvig(char **a);
 void add_car(char **a);
 void dvig_car(char **a);
+void haste(char **a,int &aa);
 int main()
 {
-	
 	setlocale(LC_ALL, "Russian");
 	int x = 20, y = 3;
 	char** map = new char*[height+4];
@@ -39,7 +39,7 @@ int main()
 		dvig_car(map);
 		if (kscore % 10 == 0)
 			add_car(map);
-		Sleep(200);
+		Sleep(50);
 		if (_kbhit()) {
 			move = _getch();
 
@@ -86,7 +86,15 @@ int main()
 						map[x - z][y - q] = ' ';
 				y -= 3;
 			}
+			if (move == VK_SPACE)
+				haste(map, kscore);
 		}
+		if (_kbhit()) {
+			move = _getch();
+			if (move == VK_SPACE)
+				haste(map,kscore);
+		}
+
 
 
 		kscore++;
@@ -238,4 +246,15 @@ void dvig_car(char **a)
 	for (int i = 2; i < width - 1; i++)
 		a[0][i] = ' ';
 
+}
+void haste(char **a,int &aa)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		dvig(a);	
+		dvig_car(a);
+		aa++;
+		clearscreen();
+		printMap(a, aa);
+	}
 }
