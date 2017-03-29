@@ -16,8 +16,8 @@ void printMap(char **m, int ks);
 void clearscreen();
 void dvig(char **a);
 void add_car(char **a);
-void dvig_car(char **a);
-void haste(char **a,int &aa);
+void dvig_car(char **a,bool c);
+void haste(char **a,int &aa,bool c);
 int main()
 {
 	setlocale(LC_ALL, "Russian");
@@ -31,12 +31,12 @@ int main()
 
 	char move;
 	int kscore = 0;
-
+	bool coordinat = 0;
 	while (true)
 	{
 		clearscreen();
 		printMap(map, kscore);
-		dvig_car(map);
+		dvig_car(map,coordinat);
 		if (kscore % 10 == 0)
 			add_car(map);
 		Sleep(50);
@@ -62,6 +62,7 @@ int main()
 				map[x + 1][y + 4] = '*';
 				map[x + 3][y + 4] = '*';
 				y += 3;
+				coordinat = 1;
 			}
 
 			if ((move == 'a' && y > width - 5) || (move == 'A' && y > width - 5))
@@ -85,14 +86,15 @@ int main()
 					for (int z = -3; z <= 0; z++)
 						map[x - z][y - q] = ' ';
 				y -= 3;
+				coordinat = 0;
 			}
 			if (move == VK_SPACE)
-				haste(map, kscore);
+				haste(map, kscore,coordinat);
 		}
 		if (_kbhit()) {
 			move = _getch();
 			if (move == VK_SPACE)
-				haste(map,kscore);
+				haste(map,kscore,coordinat);
 		}
 
 
@@ -238,8 +240,20 @@ void add_car(char **a)
 	}
 
 }
-void dvig_car(char **a)
+void dvig_car(char **a,bool c)
 {
+	if (c==0)
+	{ 
+		for (int j = height + 3; j >height-1; j--)
+			for (int i = 5; i < width - 1; i++)
+				a[j][i] = a[j - 1][i];
+	}
+	else
+	{
+		for (int j = height + 3; j >height - 1; j--)
+			for (int i = 2; i < width/2; i++)
+				a[j][i] = a[j - 1][i];
+	}
 	for (int j = height-1; j >0; j--)
 		for (int i = 2; i < width - 1; i++)
 			a[j][i] = a[j-1][i];
@@ -247,12 +261,12 @@ void dvig_car(char **a)
 		a[0][i] = ' ';
 
 }
-void haste(char **a,int &aa)
+void haste(char **a,int &aa,bool c)
 {
 	for (int i = 0; i < 5; i++)
 	{
 		dvig(a);	
-		dvig_car(a);
+		dvig_car(a,c);
 		aa++;
 		clearscreen();
 		printMap(a, aa);
