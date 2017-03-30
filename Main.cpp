@@ -20,6 +20,7 @@ void dvig_car(char **a, bool c);
 void haste(char **a, int &aa, bool c);
 int main()
 {
+	srand(time(0));
 	setlocale(LC_ALL, "Russian");
 	int x = 20, y = 3;
 	char** map = new char*[height + 4];
@@ -214,7 +215,7 @@ void clearscreen()
 }
 void add_car(char **a)
 {
-	srand(time(0));
+	
 	int ran = rand() % 2;
 	switch (ran)
 	{
@@ -269,7 +270,7 @@ void haste(char **a, int &aa, bool c)
 		dvig(a);
 		dvig_car(a, c);
 		aa++;
-		if (aa % 10 == 0)
+		if (aa % 10 == 0) 
 			add_car(a);
 		clearscreen();
 		printMap(a, aa);
