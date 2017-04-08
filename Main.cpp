@@ -20,6 +20,7 @@ void dvig_car(char **a, bool c, bool* cr);
 void haste(char **a, int &aa, bool c, bool* cr);
 bool preright(char**a, bool c);
 bool preleft(char**a, bool c);
+void GameOver(int *s);
 
 int main()
 {
@@ -117,6 +118,8 @@ int main()
 			dvig(map);
 		}
 	}
+	clearscreen();
+	GameOver(&kscore);
 	return 0;
 }
 
@@ -302,6 +305,8 @@ void haste(char **a, int &aa, bool c, bool* cr)
 {
 	for (int i = 0; i < 5; i++)
 	{
+
+
 		dvig(a);
 		dvig_car(a, c, cr);
 		aa++;
@@ -310,4 +315,22 @@ void haste(char **a, int &aa, bool c, bool* cr)
 		clearscreen();
 		printMap(a, aa);
 	}
+}
+void GameOver(int *s)
+{
+	system("cls");
+	int scr = *s;
+	cout << "****************\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n* !GAME OVER!  *\n*              *\n*              *\n*              *\n* !SCORE: " << *s << '!';
+	if (scr < 10)cout << "   *";
+	else
+		if (scr < 100) cout << "  *";
+		else
+			if (scr < 1000) cout << " *";
+			else
+				if (scr<10000) cout << "*";
+				else
+					scr = 0;
+
+	cout << "\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n****************\n";
+	_gettch();
 }
