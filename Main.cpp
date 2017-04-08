@@ -20,7 +20,6 @@ void dvig_car(char **a, bool c, bool* cr);
 void haste(char **a, int &aa, bool c, bool* cr);
 bool preright(char**a, bool c);
 bool preleft(char**a, bool c);
-void GameOver(int *s);
 
 int main()
 {
