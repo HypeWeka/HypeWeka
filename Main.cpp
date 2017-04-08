@@ -16,8 +16,12 @@ void printMap(char **m, int ks);
 void clearscreen();
 void dvig(char **a);
 void add_car(char **a);
-void dvig_car(char **a, bool c);
-void haste(char **a, int &aa, bool c);
+void dvig_car(char **a, bool c, bool* cr);
+void haste(char **a, int &aa, bool c, bool* cr);
+bool preright(char**a, bool c);
+bool preleft(char**a, bool c);
+void GameOver(int *s);
+
 int main()
 {
 	srand(time(0));
@@ -33,75 +37,86 @@ int main()
 	char move;
 	int kscore = 0;
 	bool coordinat = 0;
+	bool crush = 0;
 	while (true)
 	{
-		clearscreen();
-		printMap(map, kscore);
-		dvig_car(map, coordinat);
-		if (kscore % 10 == 0)
-			add_car(map);
-		Sleep(50);
-		if (_kbhit()) {
-			move = _getch();
+		if (crush == 1)
+			break;
 
-			if ((move == 'd' && y < width - 5) || (move == 'D' && y < width - 5))
-			{
-				for (int u = 2; u >= -1; u--)
-					map[x + 3][y - u] = ' ';
-				map[x + 1][y - 1] = ' ';
-				map[x + 3][y - 1] = ' ';
-				map[x][y] = ' ';
-				map[x + 1][y] = ' ';
-				map[x + 2][y] = ' ';
-				map[x + 1][y + 1] = ' ';
-				map[x + 3][y + 1] = ' ';
-				map[x + 1][y + 2] = '*';
-				map[x + 3][y + 2] = '*';
-				map[x][y + 3] = '*';
-				map[x + 1][y + 3] = '*';
-				map[x + 2][y + 3] = '*';
-				map[x + 1][y + 4] = '*';
-				map[x + 3][y + 4] = '*';
-				y += 3;
-				coordinat = 1;
+		else
+		{
+			clearscreen();
+			printMap(map, kscore);
+			dvig_car(map, coordinat, &crush);
+			if (kscore % 10 == 0)
+				add_car(map);
+			Sleep(80);
+			if (_kbhit()) {
+				move = _getch();
+
+				if ((move == 'd' && y < width - 5) || (move == 'D' && y < width - 5))
+				{
+					coordinat = 1;
+					if (preright(map, coordinat) == 0)break;
+					for (int u = 2; u >= -1; u--)
+						map[x + 3][y - u] = ' ';
+					map[x + 1][y - 1] = ' ';
+					map[x + 3][y - 1] = ' ';
+					map[x][y] = ' ';
+					map[x + 1][y] = ' ';
+					map[x + 2][y] = ' ';
+					map[x + 1][y + 1] = ' ';
+					map[x + 3][y + 1] = ' ';
+					map[x + 1][y + 2] = '*';
+					map[x + 3][y + 2] = '*';
+					map[x][y + 3] = '*';
+					map[x + 1][y + 3] = '*';
+					map[x + 2][y + 3] = '*';
+					map[x + 1][y + 4] = '*';
+					map[x + 3][y + 4] = '*';
+					y += 3;
+
+				}
+
+				if ((move == 'a' && y > width - 5) || (move == 'A' && y > width - 5))
+				{
+					coordinat = 0;
+					if (preleft(map, coordinat) == 0)
+						break;
+					map[x + 1][y + 1] = ' ';
+					map[x + 3][y + 1] = ' ';
+					map[x][y] = ' ';
+					map[x + 1][y] = ' ';
+					map[x + 2][y] = ' ';
+					map[x + 1][y - 1] = ' ';
+					map[x + 3][y - 1] = ' ';
+					map[x + 1][y - 4] = '*';
+					map[x + 3][y - 4] = '*';
+					map[x][y - 3] = '*';
+					map[x + 1][y - 3] = '*';
+					map[x + 2][y - 3] = '*';
+					map[x + 1][y - 2] = '*';
+					map[x + 3][y - 2] = '*';
+					for (int q = 1; q >= -2; q--)
+						for (int z = -3; z <= 0; z++)
+							map[x - z][y - q] = ' ';
+					y -= 3;
+
+				}
+				if (move == VK_SPACE)
+					haste(map, kscore, coordinat, &crush);
+			}
+			if (_kbhit()) {
+				move = _getch();
+				if (move == VK_SPACE)
+					haste(map, kscore, coordinat, &crush);
 			}
 
-			if ((move == 'a' && y > width - 5) || (move == 'A' && y > width - 5))
-			{
 
-				map[x + 1][y + 1] = ' ';
-				map[x + 3][y + 1] = ' ';
-				map[x][y] = ' ';
-				map[x + 1][y] = ' ';
-				map[x + 2][y] = ' ';
-				map[x + 1][y - 1] = ' ';
-				map[x + 3][y - 1] = ' ';
-				map[x + 1][y - 4] = '*';
-				map[x + 3][y - 4] = '*';
-				map[x][y - 3] = '*';
-				map[x + 1][y - 3] = '*';
-				map[x + 2][y - 3] = '*';
-				map[x + 1][y - 2] = '*';
-				map[x + 3][y - 2] = '*';
-				for (int q = 1; q >= -2; q--)
-					for (int z = -3; z <= 0; z++)
-						map[x - z][y - q] = ' ';
-				y -= 3;
-				coordinat = 0;
-			}
-			if (move == VK_SPACE)
-				haste(map, kscore, coordinat);
+
+			kscore++;
+			dvig(map);
 		}
-		if (_kbhit()) {
-			move = _getch();
-			if (move == VK_SPACE)
-				haste(map, kscore, coordinat);
-		}
-
-
-
-		kscore++;
-		dvig(map);
 	}
 	return 0;
 }
@@ -138,6 +153,18 @@ void setMap(char **k, int x, int y)
 	k[x + 1][y + 1] = '*';
 	k[x + 3][y - 1] = '*';
 	k[x + 3][y + 1] = '*';
+}
+bool preright(char**a, bool c)
+{
+	for (int j = height + 3; j > height - 1; j--)
+		if (a[j][6] == '*')
+			return 0;
+}
+bool preleft(char**a, bool c)
+{
+	for (int j = height + 3; j > height - 1; j--)
+		if (a[j][3] == '*')
+			return 0;
 }
 void printscore(int ikf, int scr)
 {
@@ -215,7 +242,7 @@ void clearscreen()
 }
 void add_car(char **a)
 {
-	
+
 	int ran = rand() % 2;
 	switch (ran)
 	{
@@ -241,20 +268,30 @@ void add_car(char **a)
 	}
 
 }
-void dvig_car(char **a, bool c)
+
+
+void dvig_car(char **a, bool c, bool* cr)
 {
 	if (c == 0)
 	{
-		for (int j = height + 3; j >height - 1; j--)
+		for (int j = height + 3; j > height - 1; j--)
+		{
+			if (a[height - 1][4] == '*') { *cr = 1; break; }
 			for (int i = 5; i < width - 1; i++)
 				a[j][i] = a[j - 1][i];
+		}
 	}
 	else
 	{
-		for (int j = height + 3; j >height - 1; j--)
+		for (int j = height + 3; j > height - 1; j--)
+		{
+			if (a[height - 1][5] == '*') { *cr = 1; break; }
 			for (int i = 2; i < width / 2; i++)
 				a[j][i] = a[j - 1][i];
+		}
 	}
+
+
 	for (int j = height - 1; j >0; j--)
 		for (int i = 2; i < width - 1; i++)
 			a[j][i] = a[j - 1][i];
@@ -262,15 +299,14 @@ void dvig_car(char **a, bool c)
 		a[0][i] = ' ';
 
 }
-void haste(char **a, int &aa, bool c)
+void haste(char **a, int &aa, bool c, bool* cr)
 {
 	for (int i = 0; i < 5; i++)
 	{
-		
 		dvig(a);
-		dvig_car(a, c);
+		dvig_car(a, c, cr);
 		aa++;
-		if (aa % 10 == 0) 
+		if (aa % 10 == 0)
 			add_car(a);
 		clearscreen();
 		printMap(a, aa);
