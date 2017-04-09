@@ -41,7 +41,10 @@ int main()
 	while (true)
 	{
 		if (crush == 1)
+		{
+			Sleep(1000);
 			break;
+		}
 
 		else
 		{
@@ -57,7 +60,11 @@ int main()
 				if ((move == 'd' && y < width - 5) || (move == 'D' && y < width - 5))
 				{
 					coordinat = 1;
-					if (preright(map, coordinat) == 0)break;
+					if (preright(map, coordinat) == 0)
+					{
+						Sleep(1000);
+						break;
+					}
 					for (int u = 2; u >= -1; u--)
 						map[x + 3][y - u] = ' ';
 					map[x + 1][y - 1] = ' ';
@@ -82,7 +89,10 @@ int main()
 				{
 					coordinat = 0;
 					if (preleft(map, coordinat) == 0)
+					{
+						Sleep(1000);
 						break;
+					}
 					map[x + 1][y + 1] = ' ';
 					map[x + 3][y + 1] = ' ';
 					map[x][y] = ' ';
@@ -306,12 +316,17 @@ void haste(char **a, int &aa, bool c, bool* cr)
 	for (int i = 0; i < 5; i++)
 	{
 
-
+		
 		dvig(a);
 		dvig_car(a, c, cr);
 		aa++;
 		if (aa % 10 == 0)
 			add_car(a);
+		if (*cr == 1)
+		{
+			Sleep(1000);
+			break;
+		}
 		clearscreen();
 		printMap(a, aa);
 	}
