@@ -21,6 +21,8 @@ void haste(char **a, int &aa, bool c, bool* cr);
 bool preright(char**a, bool c);
 bool preleft(char**a, bool c);
 void GameOver(int *s);
+void crushleft(char**a);
+void crushright(char**a);
 
 int main()
 {
@@ -41,11 +43,7 @@ int main()
 	while (true)
 	{
 		if (crush == 1)
-		{
-			Sleep(1000);
 			break;
-		}
-
 		else
 		{
 			clearscreen();
@@ -62,7 +60,7 @@ int main()
 					coordinat = 1;
 					if (preright(map, coordinat) == 0)
 					{
-						Sleep(1000);
+						crushleft(map);
 						break;
 					}
 					for (int u = 2; u >= -1; u--)
@@ -90,7 +88,7 @@ int main()
 					coordinat = 0;
 					if (preleft(map, coordinat) == 0)
 					{
-						Sleep(1000);
+						crushright(map);
 						break;
 					}
 					map[x + 1][y + 1] = ' ';
@@ -130,6 +128,7 @@ int main()
 	}
 	clearscreen();
 	GameOver(&kscore);
+	delete map;
 	return 0;
 }
 
@@ -288,7 +287,7 @@ void dvig_car(char **a, bool c, bool* cr)
 	{
 		for (int j = height + 3; j > height - 1; j--)
 		{
-			if (a[height - 1][4] == '*') { *cr = 1; break; }
+			if (a[height - 1][4] == '*') { *cr = 1; crushleft(a); break; }
 			for (int i = 5; i < width - 1; i++)
 				a[j][i] = a[j - 1][i];
 		}
@@ -297,7 +296,7 @@ void dvig_car(char **a, bool c, bool* cr)
 	{
 		for (int j = height + 3; j > height - 1; j--)
 		{
-			if (a[height - 1][5] == '*') { *cr = 1; break; }
+			if (a[height - 1][5] == '*') { *cr = 1; crushright(a); break; }
 			for (int i = 2; i < width / 2; i++)
 				a[j][i] = a[j - 1][i];
 		}
@@ -431,4 +430,140 @@ void GameOver(int *s)
 
 	cout << "\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n****************\n";
 	_gettch();
+}
+void crushright(char**a)
+{
+	char**tmp = new char*[4];
+	for (int i = 0; i < 4; i++)
+		tmp[i] = new char[3];
+	int k = height + 3, f = 7;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			tmp[i][j] = a[k][f];
+			f--;
+		}
+		f = 7;
+		k--;
+	}
+	int kf = 4;
+	while (kf > 0)
+	{
+
+		for (k = height; k < height + 4; k++)
+		{
+			for (f = 5; f < 8; f++)
+				a[k][f] = ' ';
+		}
+		clearscreen();
+		for (int i = 4; i < height + 4; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				cout << a[i][j];
+			}
+			cout << endl;
+		}
+
+		printline();
+		Sleep(500);
+		if (_kbhit())break;
+		kf--;
+		k = height + 3;
+		f = 7;
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				a[k][f] = tmp[i][j];
+				f--;
+			}
+			f = 7;
+			k--;
+		}
+		clearscreen();
+		for (int i = 4; i < height + 4; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				cout << a[i][j];
+			}
+			cout << endl;
+		}
+
+		printline();
+		Sleep(500);
+		if (_kbhit())break;
+	}
+	delete tmp;
+
+}
+void crushleft(char**a)
+{
+	char**tmp = new char*[4];
+	for (int i = 0; i < 4; i++)
+		tmp[i] = new char[3];
+	int k = height + 3, f = 4;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			tmp[i][j] = a[k][f];
+			f--;
+		}
+		f = 4;
+		k--;
+	}
+	int kf = 4;
+	while (kf > 0)
+	{
+
+		for (k = height; k < height + 4; k++)
+		{
+			for (f = 2; f < 5; f++)
+				a[k][f] = ' ';
+		}
+		clearscreen();
+		for (int i = 4; i < height + 4; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				cout << a[i][j];
+			}
+			cout << endl;
+		}
+
+		printline();
+		Sleep(500);
+		if (_kbhit())break;
+		kf--;
+		k = height + 3;
+		f = 4;
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				a[k][f] = tmp[i][j];
+				f--;
+			}
+			f = 4;
+			k--;
+		}
+		clearscreen();
+		for (int i = 4; i < height + 4; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				cout << a[i][j];
+			}
+			cout << endl;
+		}
+
+		printline();
+		Sleep(500);
+		if (_kbhit())break;
+	}
+	delete tmp;
+
 }
