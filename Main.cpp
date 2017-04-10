@@ -311,6 +311,89 @@ void dvig_car(char **a, bool c, bool* cr)
 		a[0][i] = ' ';
 
 }
+
+int MainMenu()
+{
+	setlocale(0, "");
+	srand(unsigned(time(NULL)));
+	int N, M;
+	char P;
+	//cout << "Введите размер матрицы: ";
+	N = 20;
+	M = 10;
+	char ** A = new char *[N];
+	for (int i = 0; i < N; i++)
+		A[i] = new char[M];
+
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
+			A[i][j] = 256;
+
+	A[N / 9][M / 9] = '1';
+	A[N / 9][M / 9 + 1] = '.';
+	A[N / 9][M / 9 + 2] = 83;
+	A[N / 9][M / 9 + 3] = 'T';
+	A[N / 9][M / 9 + 4] = 'A';
+	A[N / 9][M / 9 + 5] = 'R';
+	A[N / 9][M / 9 + 6] = 'T';
+	A[N / 9 + 4][M / 9] = '0';
+	A[N / 9 + 4][M / 9 + 1] = '.';
+	A[N / 9 + 4][M / 9 + 2] = 'E';
+	A[N / 9 + 4][M / 9 + 3] = 'X';
+	A[N / 9 + 4][M / 9 + 4] = 'I';
+	A[N / 9 + 4][M / 9 + 5] = 'T';
+	A[N / 9 + 2][M / 9] = '2';
+	A[N / 9 + 2][M / 9 + 1] = '.';
+	A[N / 9 + 2][M / 9 + 2] = 'S';
+	A[N / 9 + 2][M / 9 + 3] = 'P';
+	A[N / 9 + 2][M / 9 + 4] = 'E';
+	A[N / 9 + 2][M / 9 + 5] = 'E';
+	A[N / 9 + 2][M / 9 + 6] = 'D';
+
+
+
+
+
+
+	//вывод матрицы
+	//cout << "Вот Ваша матрица:" << endl << endl;
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < M; j++)
+			cout << A[i][j] << " ";
+		cout << endl;
+	}
+
+	cout << endl;
+	for (int i = 0; i < N; i++)
+		delete[] A[i];
+	delete[] A;
+	//getch();
+	bool G = true;
+
+	do
+	{
+		P = _getch();
+		if (P == '1')
+		{
+			return 1;
+			G = false;
+		}
+		if (P == '0')
+		{
+			return 0;
+			G = false;
+		}
+
+		//Вставить сюда функцию меню сложности
+	
+
+	} 
+	while (G==true);
+	
+
+}
+
 void haste(char **a, int &aa, bool c, bool* cr)
 {
 	for (int i = 0; i < 5; i++)
