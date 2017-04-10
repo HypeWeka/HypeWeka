@@ -128,7 +128,7 @@ int main()
 	}
 	clearscreen();
 	GameOver(&kscore);
-	delete map;
+	delete[] map;
 	return 0;
 }
 
@@ -447,10 +447,9 @@ void crushright(char**a)
 		f = 7;
 		k--;
 	}
-	int kf = 4;
+	int kf = 2;
 	while (kf > 0)
 	{
-
 		for (k = height; k < height + 4; k++)
 		{
 			for (f = 5; f < 8; f++)
@@ -468,7 +467,6 @@ void crushright(char**a)
 
 		printline();
 		Sleep(500);
-		if (_kbhit())break;
 		kf--;
 		k = height + 3;
 		f = 7;
@@ -494,9 +492,8 @@ void crushright(char**a)
 
 		printline();
 		Sleep(500);
-		if (_kbhit())break;
 	}
-	delete tmp;
+	delete[] tmp;
 
 }
 void crushleft(char**a)
@@ -515,7 +512,7 @@ void crushleft(char**a)
 		f = 4;
 		k--;
 	}
-	int kf = 4;
+	int kf = 2;
 	while (kf > 0)
 	{
 
@@ -536,7 +533,6 @@ void crushleft(char**a)
 
 		printline();
 		Sleep(500);
-		if (_kbhit())break;
 		kf--;
 		k = height + 3;
 		f = 4;
@@ -562,8 +558,7 @@ void crushleft(char**a)
 
 		printline();
 		Sleep(500);
-		if (_kbhit())break;
 	}
-	delete tmp;
+	delete[] tmp;
 
 }
