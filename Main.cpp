@@ -26,6 +26,12 @@ void crushright(char**a);
 
 int main()
 {
+	
+	MainMenu();
+	if (MainMenu==0)
+	{
+	return 0;
+	}
 	srand(time(0));
 	setlocale(LC_ALL, "Russian");
 	int x = 20, y = 3;
