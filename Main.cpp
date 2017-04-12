@@ -18,8 +18,8 @@ void dvig(char **a);
 void add_car(char **a);
 void dvig_car(char **a, bool c, bool* cr);
 void haste(char **a, int &aa, bool c, bool* cr);
-bool preright(char**a, bool c);
-bool preleft(char**a, bool c);
+bool preright(char**a);
+bool preleft(char**a);
 void GameOver(int *s);
 void crushleft(char**a);
 void crushright(char**a);
@@ -48,7 +48,6 @@ int main()
 		{
 			clearscreen();
 			printMap(map, kscore);
-			dvig_car(map, coordinat, &crush);
 			if (kscore % 10 == 0)
 				add_car(map);
 			Sleep(80);
@@ -58,7 +57,7 @@ int main()
 				if ((move == 'd' && y < width - 5) || (move == 'D' && y < width - 5))
 				{
 					coordinat = 1;
-					if (preright(map, coordinat) == 0)
+					if (preright(map) == 0)
 					{
 						crushleft(map);
 						break;
@@ -86,7 +85,7 @@ int main()
 				if ((move == 'a' && y > width - 5) || (move == 'A' && y > width - 5))
 				{
 					coordinat = 0;
-					if (preleft(map, coordinat) == 0)
+					if (preleft(map) == 0)
 					{
 						crushright(map);
 						break;
@@ -119,9 +118,7 @@ int main()
 				if (move == VK_SPACE)
 					haste(map, kscore, coordinat, &crush);
 			}
-
-
-
+			dvig_car(map, coordinat, &crush);
 			kscore++;
 			dvig(map);
 		}
@@ -165,14 +162,18 @@ void setMap(char **k, int x, int y)
 	k[x + 3][y - 1] = '*';
 	k[x + 3][y + 1] = '*';
 }
-bool preright(char**a, bool c)
+bool preright(char**a)
 {
+	if (a[height][5] == '*')
+		return 0;
 	for (int j = height + 3; j > height - 1; j--)
 		if (a[j][6] == '*')
 			return 0;
 }
-bool preleft(char**a, bool c)
+bool preleft(char**a)
 {
+	if (a[height][4] == '*')
+		return 0;
 	for (int j = height + 3; j > height - 1; j--)
 		if (a[j][3] == '*')
 			return 0;
@@ -287,7 +288,7 @@ void dvig_car(char **a, bool c, bool* cr)
 	{
 		for (int j = height + 3; j > height - 1; j--)
 		{
-			if (a[height - 1][4] == '*') { *cr = 1; crushleft(a); break; }
+			if (a[height - 2][3] == '*') { *cr = 1; crushleft(a); break; }
 			for (int i = 5; i < width - 1; i++)
 				a[j][i] = a[j - 1][i];
 		}
@@ -296,7 +297,7 @@ void dvig_car(char **a, bool c, bool* cr)
 	{
 		for (int j = height + 3; j > height - 1; j--)
 		{
-			if (a[height - 1][5] == '*') { *cr = 1; crushright(a); break; }
+			if (a[height - 2][6] == '*') { *cr = 1; crushright(a); break; }
 			for (int i = 2; i < width / 2; i++)
 				a[j][i] = a[j - 1][i];
 		}
