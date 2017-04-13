@@ -23,17 +23,15 @@ bool preleft(char**a);
 void GameOver(int *s);
 void crushleft(char**a);
 void crushright(char**a);
+int MainMenu();
 
 int main()
 {
-	
-	MainMenu();
-	if (MainMenu==0)
-	{
-	return 0;
-	}
 	srand(time(0));
 	setlocale(LC_ALL, "Russian");
+	if (MainMenu() == 0)
+		return 0;
+	system("cls");
 	int x = 20, y = 3;
 	char** map = new char*[height + 4];
 
@@ -320,11 +318,8 @@ void dvig_car(char **a, bool c, bool* cr)
 
 int MainMenu()
 {
-	setlocale(0, "");
-	srand(unsigned(time(NULL)));
 	int N, M;
 	char P;
-	//cout << "Введите размер матрицы: ";
 	N = 20;
 	M = 10;
 	char ** A = new char *[N];
@@ -355,14 +350,6 @@ int MainMenu()
 	A[N / 9 + 2][M / 9 + 4] = 'E';
 	A[N / 9 + 2][M / 9 + 5] = 'E';
 	A[N / 9 + 2][M / 9 + 6] = 'D';
-
-
-
-
-
-
-	//вывод матрицы
-	//cout << "Вот Ваша матрица:" << endl << endl;
 	for (int i = 0; i < N; i++)
 	{
 		for (int j = 0; j < M; j++)
@@ -374,7 +361,6 @@ int MainMenu()
 	for (int i = 0; i < N; i++)
 		delete[] A[i];
 	delete[] A;
-	//getch();
 	bool G = true;
 
 	do
@@ -390,10 +376,11 @@ int MainMenu()
 			return 0;
 			G = false;
 		}
-
-		//Вставить сюда функцию меню сложности
-	
-
+		if (P == '2')
+		{
+			return 2;
+			G = false;
+		}
 	} 
 	while (G==true);
 	
