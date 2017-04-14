@@ -26,8 +26,11 @@ void GameOver(int *s);
 void crushleft(char**a);
 void crushright(char**a);
 int MainMenu();
+char **setMenu();
+void printMenu(char **a);
 int speed();
 void records(int score);
+void blink(char **a, int p);
 
 int main()
 {
@@ -39,7 +42,7 @@ int main()
 
 	for (int i = 0; i<height + 4; i++)
 		map[i] = new char[width];
-	while (MainMenu() != 0)
+	while (MainMenu() == 0)
 	{
 
 		int x = 20, y = 3;
@@ -139,6 +142,105 @@ int main()
 
 	delete[] map;
 	return 0;
+}
+void blink(char **A, int p)
+{
+	int N = 10;
+	int M = 13;
+	int c = 6;
+	if (!_kbhit()) Sleep(250);
+
+	switch (p)
+	{
+	case 0:
+		
+		A[N / 9][M / c + 1] = ' ';
+		A[N / 9][M / c + 2] = ' ';
+		A[N / 9][M / c + 3] = ' ';
+		A[N / 9][M / c + 4] = ' ';
+		A[N / 9][M / c + 5] = ' ';
+		A[N / 9][M / c + 6] = ' '; 
+		clearscreen();
+		printMenu(A);
+		if (!_kbhit()) Sleep(250);
+		A[N / 9][M / c + 1] = '>';
+		A[N / 9][M / c + 2] = 'S';
+		A[N / 9][M / c + 3] = 'T';
+		A[N / 9][M / c + 4] = 'A';
+		A[N / 9][M / c + 5] = 'R';
+		A[N / 9][M / c + 6] = 'T'; 
+		clearscreen();
+		printMenu(A);
+		A[N / 9][M / c + 1] = ' ';
+		
+		break;
+	case 2:
+		A[N / 9 + 4][M / c + 1] = ' ';
+		A[N / 9 + 4][M / c + 2] = ' ';
+		A[N / 9 + 4][M / c + 3] = ' ';
+		A[N / 9 + 4][M / c + 4] = ' ';
+		A[N / 9 + 4][M / c + 5] = ' ';
+		A[N / 9 + 4][M / c + 6] = ' ';
+		A[N / 9 + 4][M / c + 7] = ' ';
+		A[N / 9 + 4][M / c + 8] = ' ';
+		clearscreen();
+		printMenu(A);
+		if (!_kbhit()) Sleep(250);
+		A[N / 9 + 4][M / c + 1] = '>';
+		A[N / 9 + 4][M / c + 2] = 'R';
+		A[N / 9 + 4][M / c + 3] = 'E';
+		A[N / 9 + 4][M / c + 4] = 'C';
+		A[N / 9 + 4][M / c + 5] = 'O';
+		A[N / 9 + 4][M / c + 6] = 'R';
+		A[N / 9 + 4][M / c + 7] = 'D';
+		A[N / 9 + 4][M / c + 8] = 'S';
+		clearscreen();
+		printMenu(A);
+
+		A[N / 9 + 4][M / c + 1] = ' ';
+		break;
+	case 1:
+		A[N / 9 + 2][M / c + 1] = ' ';
+		A[N / 9 + 2][M / c + 2] = ' ';
+		A[N / 9 + 2][M / c + 3] = ' ';
+		A[N / 9 + 2][M / c + 4] = ' ';
+		A[N / 9 + 2][M / c + 5] = ' ';
+		A[N / 9 + 2][M / c + 6] = ' ';
+		clearscreen();
+		printMenu(A);
+		if (!_kbhit()) Sleep(250);
+		A[N / 9 + 2][M / c + 1] = '>';
+		A[N / 9 + 2][M / c + 2] = 'S';
+		A[N / 9 + 2][M / c + 3] = 'P';
+		A[N / 9 + 2][M / c + 4] = 'E';
+		A[N / 9 + 2][M / c + 5] = 'E';
+		A[N / 9 + 2][M / c + 6] = 'D'; 
+		clearscreen();
+		printMenu(A);
+		A[N / 9 + 2][M / c + 1] = ' ';
+		break;
+	case 3:
+		A[N / 9 + 6][M / c + 1] = ' ';
+		A[N / 9 + 6][M / c + 2] = ' ';
+		A[N / 9 + 6][M / c + 3] = ' ';
+		A[N / 9 + 6][M / c + 4] = ' ';
+		A[N / 9 + 6][M / c + 5] = ' ';
+		clearscreen();
+		printMenu(A);
+		if (!_kbhit()) Sleep(250);
+		A[N / 9 + 6][M / c + 1] = '>';
+		A[N / 9 + 6][M / c + 2] = 'E';
+		A[N / 9 + 6][M / c + 3] = 'X';
+		A[N / 9 + 6][M / c + 4] = 'I';
+		A[N / 9 + 6][M / c + 5] = 'T'; 
+		clearscreen();
+		printMenu(A);
+
+		A[N / 9 + 6][M / c + 1] = ' ';
+		break;
+	}
+
+
 }
 
 void setMap(char **k, int x, int y)
@@ -292,7 +394,66 @@ void add_car(char **a)
 	}
 
 }
+char **setMenu()
+{
+	int N, M;
+	
+	N = 10;
+	M = 13;
+	char ** A = new char *[N];
+	for (int i = 0; i < N; i++)
+		A[i] = new char[M];
 
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
+			A[i][j] = ' ';
+	int c = 6;
+	A[N / 9][M / c] = ' ';
+	A[N / 9][M / c + 1] = ' ';
+	A[N / 9][M / c + 2] = 'S';
+	A[N / 9][M / c + 3] = 'T';
+	A[N / 9][M / c + 4] = 'A';
+	A[N / 9][M / c + 5] = 'R';
+	A[N / 9][M / c + 6] = 'T';
+	A[N / 9 + 4][M / c] = ' ';
+	A[N / 9 + 4][M / c + 1] = ' ';
+	A[N / 9 + 4][M / c + 2] = 'R';
+	A[N / 9 + 4][M / c + 3] = 'E';
+	A[N / 9 + 4][M / c + 4] = 'C';
+	A[N / 9 + 4][M / c + 5] = 'O';
+	A[N / 9 + 4][M / c + 6] = 'R';
+	A[N / 9 + 4][M / c + 7] = 'D';
+	A[N / 9 + 4][M / c + 8] = 'S';
+	A[N / 9 + 2][M / c] = ' ';
+	A[N / 9 + 2][M / c + 1] = ' ';
+	A[N / 9 + 2][M / c + 2] = 'S';
+	A[N / 9 + 2][M / c + 3] = 'P';
+	A[N / 9 + 2][M / c + 4] = 'E';
+	A[N / 9 + 2][M / c + 5] = 'E';
+	A[N / 9 + 2][M / c + 6] = 'D';
+	A[N / 9 + 6][M / c] = ' ';
+	A[N / 9 + 6][M / c + 1] = ' ';
+	A[N / 9 + 6][M / c + 2] = 'E';
+	A[N / 9 + 6][M / c + 3] = 'X';
+	A[N / 9 + 6][M / c + 4] = 'I';
+	A[N / 9 + 6][M / c + 5] = 'T';
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < M; j++)
+		{
+			if (i == 0 || i == N - 1)
+				A[i][j] = '*';
+			else
+				if (j == 0 || j == M - 1)
+					A[i][j] = '*';
+			
+		}
+		
+	}
+	return A;
+
+
+}
 
 void dvig_car(char **a, bool c, bool* cr)
 {
@@ -327,92 +488,50 @@ void dvig_car(char **a, bool c, bool* cr)
 int MainMenu()
 {
 	int N, M;
-	char P;
+	int P=0;
 	N = 10;
 	M = 13;
-	char ** A = new char *[N];
-	for (int i = 0; i < N; i++)
-		A[i] = new char[M];
-
-	for (int i = 0; i < N; i++)
-		for (int j = 0; j < M; j++)
-			A[i][j] = ' ';
-	int c = 6;
-	A[N / 9][M / c] = '1';
-	A[N / 9][M / c + 1] = '.';
-	A[N / 9][M / c + 2] = 'S';
-	A[N / 9][M / c + 3] = 'T';
-	A[N / 9][M / c + 4] = 'A';
-	A[N / 9][M / c + 5] = 'R';
-	A[N / 9][M / c + 6] = 'T';
-	A[N / 9 + 4][M / c] = '3';
-	A[N / 9 + 4][M / c + 1] = '.';
-	A[N / 9 + 4][M / c + 2] = 'R';
-	A[N / 9 + 4][M / c + 3] = 'E';
-	A[N / 9 + 4][M / c + 4] = 'C';
-	A[N / 9 + 4][M / c + 5] = 'O';
-	A[N / 9 + 4][M / c + 6] = 'R';
-	A[N / 9 + 4][M / c + 7] = 'D';
-	A[N / 9 + 4][M / c + 8] = 'S';
-	A[N / 9 + 2][M / c] = '2';
-	A[N / 9 + 2][M / c + 1] = '.';
-	A[N / 9 + 2][M / c + 2] = 'S';
-	A[N / 9 + 2][M / c + 3] = 'P';
-	A[N / 9 + 2][M / c + 4] = 'E';
-	A[N / 9 + 2][M / c + 5] = 'E';
-	A[N / 9 + 2][M / c + 6] = 'D';
-	A[N / 9 + 6][M / c] = '0';
-	A[N / 9 + 6][M / c + 1] = '.';
-	A[N / 9 + 6][M / c + 2] = 'E';
-	A[N / 9 + 6][M / c + 3] = 'X';
-	A[N / 9 + 6][M / c + 4] = 'I';
-	A[N / 9 + 6][M / c + 5] = 'T';
-	for (int i = 0; i < N; i++)
+	char **A = setMenu();
+	printMenu(A);
+	bool G = true;
+	char tt;
+	while (G==true)
 	{
-		for (int j = 0; j < M; j++)
+		blink(A, P);
+		if (_kbhit())
 		{
-			if (i == 0 || i == N - 1)
-				A[i][j] = '*';
-			else
-				if (j == 0 || j == M - 1)
-					A[i][j] = '*';
-			cout << A[i][j] << ' ';
-		}
-		cout << endl;
-	}
+			tt = _gettch();
+			switch (tt)
+			{
+			case 's':
+				if (P < 3)
+					P++;
+				else P = 0;
+				break;
 
-	cout << endl;
+			case 'w':
+				if (P > 0)
+					P--;
+				else P = 3;
+				break;
+			case VK_RETURN:
+				G = false;
+				break;
+			default:
+				
+				break;
+			}
+		}
+
+	}
 	for (int i = 0; i < N; i++)
 		delete[] A[i];
 	delete[] A;
-	bool G = true;
+	if (P == 3)
+		return 1;
+	return 0;
 
-	do
-	{
-		P = _getch();
-		if (P == '1')
-		{
-			return 1;
-			G = false;
-		}
-		if (P == '0')
-		{
-			return 0;
-			G = false;
-		}
-		if (P == '2')
-		{
-			return 2;
-			G = false;
-		}
-		if (P == '3')
-		{
-			return 3;
-			G = false;
-		}
-	} while (G == true);
-
-
+	
 }
 int speed()
 {
@@ -621,4 +740,20 @@ void crushleft(char**a)
 	}
 	delete[] tmp;
 
+}
+void printMenu(char **a)
+{
+	int N, M;
+	N = 10;
+	M = 13;
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < M; j++)
+		{
+			cout << a[i][j] << " ";
+
+		}
+		cout << endl;
+
+	}
 }
