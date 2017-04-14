@@ -24,111 +24,116 @@ void GameOver(int *s);
 void crushleft(char**a);
 void crushright(char**a);
 int MainMenu();
+int speed();
+void records();
 
 int main()
 {
 	srand(time(0));
 	setlocale(LC_ALL, "Russian");
-	if (MainMenu() == 0)
-		return 0;
-	system("cls");
-	int x = 20, y = 3;
+
+
 	char** map = new char*[height + 4];
 
 	for (int i = 0; i<height + 4; i++)
 		map[i] = new char[width];
-
-	setMap(map, x, y);
-
-	char move;
-	int kscore = 0;
-	bool coordinat = 0;
-	bool crush = 0;
-	while (true)
+	while (MainMenu() != 0)
 	{
-		if (crush == 1)
-			break;
-		else
+
+		int x = 20, y = 3;
+		setMap(map, x, y);
+		char move;
+		int kscore = 0;
+		bool coordinat = 0;
+		bool crush = 0;
+		system("cls");
+		while (true)
 		{
-			clearscreen();
-			printMap(map, kscore);
-			if (kscore % 10 == 0)
-				add_car(map);
-			Sleep(80);
-			if (_kbhit()) {
-				move = _getch();
+			if (crush == 1)
+				break;
+			else
+			{
+				clearscreen();
+				printMap(map, kscore);
+				if (kscore % 10 == 0)
+					add_car(map);
+				Sleep(80);
+				if (_kbhit()) {
+					move = _getch();
 
-				if ((move == 'd' && y < width - 5) || (move == 'D' && y < width - 5))
-				{
-					coordinat = 1;
-					if (preright(map) == 0)
+					if ((move == 'd' && y < width - 5) || (move == 'D' && y < width - 5))
 					{
-						crushleft(map);
-						break;
+						coordinat = 1;
+						if (preright(map) == 0)
+						{
+							crushleft(map);
+							break;
+						}
+						for (int u = 2; u >= -1; u--)
+							map[x + 3][y - u] = ' ';
+						map[x + 1][y - 1] = ' ';
+						map[x + 3][y - 1] = ' ';
+						map[x][y] = ' ';
+						map[x + 1][y] = ' ';
+						map[x + 2][y] = ' ';
+						map[x + 1][y + 1] = ' ';
+						map[x + 3][y + 1] = ' ';
+						map[x + 1][y + 2] = '*';
+						map[x + 3][y + 2] = '*';
+						map[x][y + 3] = '*';
+						map[x + 1][y + 3] = '*';
+						map[x + 2][y + 3] = '*';
+						map[x + 1][y + 4] = '*';
+						map[x + 3][y + 4] = '*';
+						y += 3;
+
 					}
-					for (int u = 2; u >= -1; u--)
-						map[x + 3][y - u] = ' ';
-					map[x + 1][y - 1] = ' ';
-					map[x + 3][y - 1] = ' ';
-					map[x][y] = ' ';
-					map[x + 1][y] = ' ';
-					map[x + 2][y] = ' ';
-					map[x + 1][y + 1] = ' ';
-					map[x + 3][y + 1] = ' ';
-					map[x + 1][y + 2] = '*';
-					map[x + 3][y + 2] = '*';
-					map[x][y + 3] = '*';
-					map[x + 1][y + 3] = '*';
-					map[x + 2][y + 3] = '*';
-					map[x + 1][y + 4] = '*';
-					map[x + 3][y + 4] = '*';
-					y += 3;
 
-				}
-
-				if ((move == 'a' && y > width - 5) || (move == 'A' && y > width - 5))
-				{
-					coordinat = 0;
-					if (preleft(map) == 0)
+					if ((move == 'a' && y > width - 5) || (move == 'A' && y > width - 5))
 					{
-						crushright(map);
-						break;
-					}
-					map[x + 1][y + 1] = ' ';
-					map[x + 3][y + 1] = ' ';
-					map[x][y] = ' ';
-					map[x + 1][y] = ' ';
-					map[x + 2][y] = ' ';
-					map[x + 1][y - 1] = ' ';
-					map[x + 3][y - 1] = ' ';
-					map[x + 1][y - 4] = '*';
-					map[x + 3][y - 4] = '*';
-					map[x][y - 3] = '*';
-					map[x + 1][y - 3] = '*';
-					map[x + 2][y - 3] = '*';
-					map[x + 1][y - 2] = '*';
-					map[x + 3][y - 2] = '*';
-					for (int q = 1; q >= -2; q--)
-						for (int z = -3; z <= 0; z++)
-							map[x - z][y - q] = ' ';
-					y -= 3;
+						coordinat = 0;
+						if (preleft(map) == 0)
+						{
+							crushright(map);
+							break;
+						}
+						map[x + 1][y + 1] = ' ';
+						map[x + 3][y + 1] = ' ';
+						map[x][y] = ' ';
+						map[x + 1][y] = ' ';
+						map[x + 2][y] = ' ';
+						map[x + 1][y - 1] = ' ';
+						map[x + 3][y - 1] = ' ';
+						map[x + 1][y - 4] = '*';
+						map[x + 3][y - 4] = '*';
+						map[x][y - 3] = '*';
+						map[x + 1][y - 3] = '*';
+						map[x + 2][y - 3] = '*';
+						map[x + 1][y - 2] = '*';
+						map[x + 3][y - 2] = '*';
+						for (int q = 1; q >= -2; q--)
+							for (int z = -3; z <= 0; z++)
+								map[x - z][y - q] = ' ';
+						y -= 3;
 
+					}
+					if (move == VK_SPACE)
+						haste(map, kscore, coordinat, &crush);
 				}
-				if (move == VK_SPACE)
-					haste(map, kscore, coordinat, &crush);
+				if (_kbhit()) {
+					move = _getch();
+					if (move == VK_SPACE)
+						haste(map, kscore, coordinat, &crush);
+				}
+				dvig_car(map, coordinat, &crush);
+				kscore++;
+				dvig(map);
 			}
-			if (_kbhit()) {
-				move = _getch();
-				if (move == VK_SPACE)
-					haste(map, kscore, coordinat, &crush);
-			}
-			dvig_car(map, coordinat, &crush);
-			kscore++;
-			dvig(map);
 		}
+		clearscreen();
+		GameOver(&kscore);
+		system("cls");
 	}
-	clearscreen();
-	GameOver(&kscore);
 	delete[] map;
 	return 0;
 }
@@ -320,40 +325,56 @@ int MainMenu()
 {
 	int N, M;
 	char P;
-	N = 20;
-	M = 10;
+	N = 10;
+	M = 13;
 	char ** A = new char *[N];
 	for (int i = 0; i < N; i++)
 		A[i] = new char[M];
 
 	for (int i = 0; i < N; i++)
 		for (int j = 0; j < M; j++)
-			A[i][j] = 256;
-
-	A[N / 9][M / 9] = '1';
-	A[N / 9][M / 9 + 1] = '.';
-	A[N / 9][M / 9 + 2] = 83;
-	A[N / 9][M / 9 + 3] = 'T';
-	A[N / 9][M / 9 + 4] = 'A';
-	A[N / 9][M / 9 + 5] = 'R';
-	A[N / 9][M / 9 + 6] = 'T';
-	A[N / 9 + 4][M / 9] = '0';
-	A[N / 9 + 4][M / 9 + 1] = '.';
-	A[N / 9 + 4][M / 9 + 2] = 'E';
-	A[N / 9 + 4][M / 9 + 3] = 'X';
-	A[N / 9 + 4][M / 9 + 4] = 'I';
-	A[N / 9 + 4][M / 9 + 5] = 'T';
-	A[N / 9 + 2][M / 9] = '2';
-	A[N / 9 + 2][M / 9 + 1] = '.';
-	A[N / 9 + 2][M / 9 + 2] = 'S';
-	A[N / 9 + 2][M / 9 + 3] = 'P';
-	A[N / 9 + 2][M / 9 + 4] = 'E';
-	A[N / 9 + 2][M / 9 + 5] = 'E';
-	A[N / 9 + 2][M / 9 + 6] = 'D';
+			A[i][j] = ' ';
+	int c = 6;
+	A[N / 9][M / c] = '1';
+	A[N / 9][M / c + 1] = '.';
+	A[N / 9][M / c + 2] = 'S';
+	A[N / 9][M / c + 3] = 'T';
+	A[N / 9][M / c + 4] = 'A';
+	A[N / 9][M / c + 5] = 'R';
+	A[N / 9][M / c + 6] = 'T';
+	A[N / 9 + 4][M / c] = '3';
+	A[N / 9 + 4][M / c + 1] = '.';
+	A[N / 9 + 4][M / c + 2] = 'R';
+	A[N / 9 + 4][M / c + 3] = 'E';
+	A[N / 9 + 4][M / c + 4] = 'C';
+	A[N / 9 + 4][M / c + 5] = 'O';
+	A[N / 9 + 4][M / c + 6] = 'R';
+	A[N / 9 + 4][M / c + 7] = 'D';
+	A[N / 9 + 4][M / c + 8] = 'S';
+	A[N / 9 + 2][M / c] = '2';
+	A[N / 9 + 2][M / c + 1] = '.';
+	A[N / 9 + 2][M / c + 2] = 'S';
+	A[N / 9 + 2][M / c + 3] = 'P';
+	A[N / 9 + 2][M / c + 4] = 'E';
+	A[N / 9 + 2][M / c + 5] = 'E';
+	A[N / 9 + 2][M / c + 6] = 'D';
+	A[N / 9 + 6][M / c] = '0';
+	A[N / 9 + 6][M / c + 1] = '.';
+	A[N / 9 + 6][M / c + 2] = 'E';
+	A[N / 9 + 6][M / c + 3] = 'X';
+	A[N / 9 + 6][M / c + 4] = 'I';
+	A[N / 9 + 6][M / c + 5] = 'T';
 	for (int i = 0; i < N; i++)
 	{
 		for (int j = 0; j < M; j++)
-			cout << A[i][j] << " ";
+		{
+			if (i == 0 || i == N - 1)
+				A[i][j] = '*';
+			else
+				if (j == 0 || j == M - 1)
+					A[i][j] = '*';
+			cout << A[i][j] << ' ';
+		}
 		cout << endl;
 	}
 
@@ -381,18 +402,34 @@ int MainMenu()
 			return 2;
 			G = false;
 		}
-	} 
-	while (G==true);
-	
+		if (P == '3')
+		{
+			return 3;
+			G = false;
+		}
+	} while (G == true);
+
 
 }
+int speed()
+{
+	int move = _getch();
+	switch (move)
+	{
+	case 1: return 80;
+	case 2:	return 200;
+	case 3: return 600;
+	default: return 800;
+	}
+}
+void records();
 
 void haste(char **a, int &aa, bool c, bool* cr)
 {
 	for (int i = 0; i < 5; i++)
 	{
 
-		
+
 		dvig(a);
 		dvig_car(a, c, cr);
 		aa++;
