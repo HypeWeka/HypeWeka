@@ -148,94 +148,127 @@ void blink(char **A, int p)
 	int N = 10;
 	int M = 13;
 	int c = 6;
-	if (!_kbhit()) Sleep(250);
+	
 
 	switch (p)
 	{
 	case 0:
 		
-		A[N / 9][M / c + 1] = ' ';
-		A[N / 9][M / c + 2] = ' ';
-		A[N / 9][M / c + 3] = ' ';
-		A[N / 9][M / c + 4] = ' ';
-		A[N / 9][M / c + 5] = ' ';
-		A[N / 9][M / c + 6] = ' '; 
-		clearscreen();
-		printMenu(A);
-		if (!_kbhit()) Sleep(250);
-		A[N / 9][M / c + 1] = '>';
-		A[N / 9][M / c + 2] = 'S';
-		A[N / 9][M / c + 3] = 'T';
-		A[N / 9][M / c + 4] = 'A';
-		A[N / 9][M / c + 5] = 'R';
-		A[N / 9][M / c + 6] = 'T'; 
-		clearscreen();
-		printMenu(A);
-		A[N / 9][M / c + 1] = ' ';
+		if (!_kbhit()) {
+			A[N / 9][M / c + 1] = '>';
 		
+			clearscreen();
+			printMenu(A);
+			if (!_kbhit()) {
+				Sleep(350);
+				A[N / 9][M / c + 1] = ' ';
+				A[N / 9][M / c + 2] = ' ';
+				A[N / 9][M / c + 3] = ' ';
+				A[N / 9][M / c + 4] = ' ';
+				A[N / 9][M / c + 5] = ' ';
+				A[N / 9][M / c + 6] = ' ';
+				clearscreen();
+				printMenu(A);
+				Sleep(350);
+				A[N / 9][M / c + 2] = 'S';
+				A[N / 9][M / c + 3] = 'T';
+				A[N / 9][M / c + 4] = 'A';
+				A[N / 9][M / c + 5] = 'R';
+				A[N / 9][M / c + 6] = 'T';
+			}
+		}
+		A[N / 9][M / c + 1] = ' ';
+			
+		
+		
+
 		break;
 	case 2:
-		A[N / 9 + 4][M / c + 1] = ' ';
-		A[N / 9 + 4][M / c + 2] = ' ';
-		A[N / 9 + 4][M / c + 3] = ' ';
-		A[N / 9 + 4][M / c + 4] = ' ';
-		A[N / 9 + 4][M / c + 5] = ' ';
-		A[N / 9 + 4][M / c + 6] = ' ';
-		A[N / 9 + 4][M / c + 7] = ' ';
-		A[N / 9 + 4][M / c + 8] = ' ';
-		clearscreen();
-		printMenu(A);
-		if (!_kbhit()) Sleep(250);
-		A[N / 9 + 4][M / c + 1] = '>';
-		A[N / 9 + 4][M / c + 2] = 'R';
-		A[N / 9 + 4][M / c + 3] = 'E';
-		A[N / 9 + 4][M / c + 4] = 'C';
-		A[N / 9 + 4][M / c + 5] = 'O';
-		A[N / 9 + 4][M / c + 6] = 'R';
-		A[N / 9 + 4][M / c + 7] = 'D';
-		A[N / 9 + 4][M / c + 8] = 'S';
-		clearscreen();
-		printMenu(A);
+		
+		if (!_kbhit())
+		{
+			A[N / 9 + 4][M / c + 1] = '>';
+			
+			clearscreen();
+			printMenu(A);
+			if (!_kbhit()) {
+				Sleep(350);
+				A[N / 9 + 4][M / c + 1] = ' ';
+				A[N / 9 + 4][M / c + 2] = ' ';
+				A[N / 9 + 4][M / c + 3] = ' ';
+				A[N / 9 + 4][M / c + 4] = ' ';
+				A[N / 9 + 4][M / c + 5] = ' ';
+				A[N / 9 + 4][M / c + 6] = ' ';
+				A[N / 9 + 4][M / c + 7] = ' ';
+				A[N / 9 + 4][M / c + 8] = ' ';
+				clearscreen();
+				printMenu(A);
+				Sleep(350);
+				A[N / 9 + 4][M / c + 2] = 'R';
+				A[N / 9 + 4][M / c + 3] = 'E';
+				A[N / 9 + 4][M / c + 4] = 'C';
+				A[N / 9 + 4][M / c + 5] = 'O';
+				A[N / 9 + 4][M / c + 6] = 'R';
+				A[N / 9 + 4][M / c + 7] = 'D';
+				A[N / 9 + 4][M / c + 8] = 'S';
+			}
+
+		}
 
 		A[N / 9 + 4][M / c + 1] = ' ';
 		break;
 	case 1:
-		A[N / 9 + 2][M / c + 1] = ' ';
-		A[N / 9 + 2][M / c + 2] = ' ';
-		A[N / 9 + 2][M / c + 3] = ' ';
-		A[N / 9 + 2][M / c + 4] = ' ';
-		A[N / 9 + 2][M / c + 5] = ' ';
-		A[N / 9 + 2][M / c + 6] = ' ';
-		clearscreen();
-		printMenu(A);
-		if (!_kbhit()) Sleep(250);
-		A[N / 9 + 2][M / c + 1] = '>';
-		A[N / 9 + 2][M / c + 2] = 'S';
-		A[N / 9 + 2][M / c + 3] = 'P';
-		A[N / 9 + 2][M / c + 4] = 'E';
-		A[N / 9 + 2][M / c + 5] = 'E';
-		A[N / 9 + 2][M / c + 6] = 'D'; 
-		clearscreen();
-		printMenu(A);
+		if (!_kbhit())
+		{
+			A[N / 9 + 2][M / c + 1] = '>';
+			
+			clearscreen();
+			printMenu(A);
+			if (!_kbhit()) {
+				Sleep(350);
+				A[N / 9 + 2][M / c + 1] = ' ';
+				A[N / 9 + 2][M / c + 2] = ' ';
+				A[N / 9 + 2][M / c + 3] = ' ';
+				A[N / 9 + 2][M / c + 4] = ' ';
+				A[N / 9 + 2][M / c + 5] = ' ';
+				A[N / 9 + 2][M / c + 6] = ' ';
+				clearscreen();
+				printMenu(A);
+				Sleep(350);
+				A[N / 9 + 2][M / c + 2] = 'S';
+				A[N / 9 + 2][M / c + 3] = 'P';
+				A[N / 9 + 2][M / c + 4] = 'E';
+				A[N / 9 + 2][M / c + 5] = 'E';
+				A[N / 9 + 2][M / c + 6] = 'D';
+			}
+		}
 		A[N / 9 + 2][M / c + 1] = ' ';
 		break;
 	case 3:
-		A[N / 9 + 6][M / c + 1] = ' ';
-		A[N / 9 + 6][M / c + 2] = ' ';
-		A[N / 9 + 6][M / c + 3] = ' ';
-		A[N / 9 + 6][M / c + 4] = ' ';
-		A[N / 9 + 6][M / c + 5] = ' ';
-		clearscreen();
-		printMenu(A);
-		if (!_kbhit()) Sleep(250);
-		A[N / 9 + 6][M / c + 1] = '>';
-		A[N / 9 + 6][M / c + 2] = 'E';
-		A[N / 9 + 6][M / c + 3] = 'X';
-		A[N / 9 + 6][M / c + 4] = 'I';
-		A[N / 9 + 6][M / c + 5] = 'T'; 
-		clearscreen();
-		printMenu(A);
+		if (!_kbhit())
+		{
+			A[N / 9 + 6][M / c + 1] = '>';
+			
+			clearscreen();
+			printMenu(A);
+			if (!_kbhit()) {
+				Sleep(350);
+				A[N / 9 + 6][M / c + 1] = ' ';
+				A[N / 9 + 6][M / c + 2] = ' ';
+				A[N / 9 + 6][M / c + 3] = ' ';
+				A[N / 9 + 6][M / c + 4] = ' ';
+				A[N / 9 + 6][M / c + 5] = ' ';
+				clearscreen();
+				printMenu(A);
+				Sleep(350);
+				A[N / 9 + 6][M / c + 2] = 'E';
+				A[N / 9 + 6][M / c + 3] = 'X';
+				A[N / 9 + 6][M / c + 4] = 'I';
+				A[N / 9 + 6][M / c + 5] = 'T';
+			}
 
+
+		}
 		A[N / 9 + 6][M / c + 1] = ' ';
 		break;
 	}
@@ -397,7 +430,7 @@ void add_car(char **a)
 char **setMenu()
 {
 	int N, M;
-	
+
 	N = 10;
 	M = 13;
 	char ** A = new char *[N];
@@ -446,9 +479,9 @@ char **setMenu()
 			else
 				if (j == 0 || j == M - 1)
 					A[i][j] = '*';
-			
+
 		}
-		
+
 	}
 	return A;
 
@@ -488,14 +521,15 @@ void dvig_car(char **a, bool c, bool* cr)
 int MainMenu()
 {
 	int N, M;
-	int P=0;
+	int P = 0;
 	N = 10;
 	M = 13;
+	int c = 6;
 	char **A = setMenu();
 	printMenu(A);
 	bool G = true;
 	char tt;
-	while (G==true)
+	while (G == true)
 	{
 		blink(A, P);
 		if (_kbhit())
@@ -507,18 +541,70 @@ int MainMenu()
 				if (P < 3)
 					P++;
 				else P = 0;
+				switch (P)
+				{
+				case 0 :
+					A[N / 9][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 1:
+					A[N / 9 + 2][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 2:
+					A[N / 9 + 4][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 3:
+					A[N / 9 + 6][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				default :
+					break;
+					
+				}
 				break;
 
 			case 'w':
 				if (P > 0)
 					P--;
 				else P = 3;
+				switch (P)
+				{
+				case 0:
+					A[N / 9][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 1:
+					A[N / 9 + 2][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 2:
+					A[N / 9 + 4][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 3:
+					A[N / 9 + 6][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				default:
+					break;
+
+				}
 				break;
 			case VK_RETURN:
 				G = false;
 				break;
 			default:
-				
+
 				break;
 			}
 		}
@@ -531,7 +617,7 @@ int MainMenu()
 		return 1;
 	return 0;
 
-	
+
 }
 int speed()
 {
