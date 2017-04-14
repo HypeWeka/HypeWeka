@@ -6,6 +6,8 @@
 #include <conio.h>
 #include <Windows.h>
 #include <string>
+#include <fstream>
+
 using namespace std;
 
 const int height = 20, width = 10;
@@ -25,7 +27,7 @@ void crushleft(char**a);
 void crushright(char**a);
 int MainMenu();
 int speed();
-void records();
+void records(int score);
 
 int main()
 {
@@ -134,6 +136,7 @@ int main()
 		GameOver(&kscore);
 		system("cls");
 	}
+
 	delete[] map;
 	return 0;
 }
@@ -422,7 +425,32 @@ int speed()
 	default: return 800;
 	}
 }
-void records();
+void records(int score)
+{
+	int n = 5;
+	int* data = new int[n];
+	ifstream rin("records.txt");
+	for (int i = 0; i < n; i++)
+		rin >> data[i];
+	if (data[n - 1] < score)
+		data[n - 1] = score;
+	else return;
+	for (int i = n - 2; i > -1; i--)
+	{
+		if (data[i + 1] > data[i])
+		{
+			int z = data[i];
+			data[i] = data[i + 1];
+			data[i + 1] = z;
+		}
+		else break;
+	}
+	ofstream rout("records.txt");
+	for (int i = 0; i < n; i++)
+		rout << data[i] << ' ';
+	rout.close();
+	delete[]data;
+}
 
 void haste(char **a, int &aa, bool c, bool* cr)
 {
@@ -460,6 +488,7 @@ void GameOver(int *s)
 					scr = 0;
 
 	cout << "\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n****************\n";
+	records(*s);
 	_gettch();
 }
 void crushright(char**a)
