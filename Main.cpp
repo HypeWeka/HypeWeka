@@ -9,7 +9,6 @@
 #include <fstream>
 
 using namespace std;
-
 const int height = 20, width = 10;
 
 void setMap(char **k, int x, int y);
@@ -25,24 +24,28 @@ bool preleft(char**a);
 void GameOver(int *s);
 void crushleft(char**a);
 void crushright(char**a);
-int MainMenu();
+int MainMenu(int & SPEED);
 char **setMenu();
 void printMenu(char **a);
-int speed();
+
 void records(int score);
 void blink(char **a, int p);
+void blinkSpeed(char **a, int p);
+int speedMenu();
+char **setSpeedMenu();
 
 int main()
 {
 	srand(time(0));
 	setlocale(LC_ALL, "Russian");
+	int speed = 65;
 
 
 	char** map = new char*[height + 4];
 
 	for (int i = 0; i<height + 4; i++)
 		map[i] = new char[width];
-	while (MainMenu() == 0)
+	while (MainMenu(speed) == 0)
 	{
 
 		int x = 20, y = 3;
@@ -62,7 +65,7 @@ int main()
 				printMap(map, kscore);
 				if (kscore % 10 == 0)
 					add_car(map);
-				Sleep(80);
+				Sleep(speed);
 				if (_kbhit()) {
 					move = _getch();
 
@@ -148,133 +151,275 @@ void blink(char **A, int p)
 	int N = 10;
 	int M = 13;
 	int c = 6;
-	
 
-	switch (p)
-	{
-	case 0:
-		
-		if (!_kbhit()) {
-			A[N / 9][M / c + 1] = '>';
-		
-			clearscreen();
-			printMenu(A);
-			if (!_kbhit()) {
-				Sleep(350);
-				A[N / 9][M / c + 1] = ' ';
-				A[N / 9][M / c + 2] = ' ';
-				A[N / 9][M / c + 3] = ' ';
-				A[N / 9][M / c + 4] = ' ';
-				A[N / 9][M / c + 5] = ' ';
-				A[N / 9][M / c + 6] = ' ';
-				clearscreen();
-				printMenu(A);
-				Sleep(350);
-				A[N / 9][M / c + 2] = 'S';
-				A[N / 9][M / c + 3] = 'T';
-				A[N / 9][M / c + 4] = 'A';
-				A[N / 9][M / c + 5] = 'R';
-				A[N / 9][M / c + 6] = 'T';
-			}
-		}
-		A[N / 9][M / c + 1] = ' ';
-			
-		
-		
-
-		break;
-	case 2:
-		
-		if (!_kbhit())
+	if (!_kbhit()) {
+		switch (p)
 		{
-			A[N / 9 + 4][M / c + 1] = '>';
-			
-			clearscreen();
-			printMenu(A);
+		case 0:
+
 			if (!_kbhit()) {
-				Sleep(350);
-				A[N / 9 + 4][M / c + 1] = ' ';
-				A[N / 9 + 4][M / c + 2] = ' ';
-				A[N / 9 + 4][M / c + 3] = ' ';
-				A[N / 9 + 4][M / c + 4] = ' ';
-				A[N / 9 + 4][M / c + 5] = ' ';
-				A[N / 9 + 4][M / c + 6] = ' ';
-				A[N / 9 + 4][M / c + 7] = ' ';
-				A[N / 9 + 4][M / c + 8] = ' ';
+				A[N / 9][M / c + 1] = '>';
+
 				clearscreen();
 				printMenu(A);
-				Sleep(350);
-				A[N / 9 + 4][M / c + 2] = 'R';
-				A[N / 9 + 4][M / c + 3] = 'E';
-				A[N / 9 + 4][M / c + 4] = 'C';
-				A[N / 9 + 4][M / c + 5] = 'O';
-				A[N / 9 + 4][M / c + 6] = 'R';
-				A[N / 9 + 4][M / c + 7] = 'D';
-				A[N / 9 + 4][M / c + 8] = 'S';
+				if (!_kbhit()) {
+					Sleep(350);
+					A[N / 9][M / c + 1] = ' ';
+					A[N / 9][M / c + 2] = ' ';
+					A[N / 9][M / c + 3] = ' ';
+					A[N / 9][M / c + 4] = ' ';
+					A[N / 9][M / c + 5] = ' ';
+					A[N / 9][M / c + 6] = ' ';
+					clearscreen();
+					printMenu(A);
+					Sleep(350);
+					A[N / 9][M / c + 2] = 'S';
+					A[N / 9][M / c + 3] = 'T';
+					A[N / 9][M / c + 4] = 'A';
+					A[N / 9][M / c + 5] = 'R';
+					A[N / 9][M / c + 6] = 'T';
+				}
 			}
+			A[N / 9][M / c + 1] = ' ';
 
-		}
 
-		A[N / 9 + 4][M / c + 1] = ' ';
-		break;
-	case 1:
-		if (!_kbhit())
-		{
-			A[N / 9 + 2][M / c + 1] = '>';
-			
-			clearscreen();
-			printMenu(A);
-			if (!_kbhit()) {
-				Sleep(350);
-				A[N / 9 + 2][M / c + 1] = ' ';
-				A[N / 9 + 2][M / c + 2] = ' ';
-				A[N / 9 + 2][M / c + 3] = ' ';
-				A[N / 9 + 2][M / c + 4] = ' ';
-				A[N / 9 + 2][M / c + 5] = ' ';
-				A[N / 9 + 2][M / c + 6] = ' ';
+
+
+			break;
+		case 2:
+
+			if (!_kbhit())
+			{
+				A[N / 9 + 4][M / c + 1] = '>';
+
 				clearscreen();
 				printMenu(A);
-				Sleep(350);
-				A[N / 9 + 2][M / c + 2] = 'S';
-				A[N / 9 + 2][M / c + 3] = 'P';
-				A[N / 9 + 2][M / c + 4] = 'E';
-				A[N / 9 + 2][M / c + 5] = 'E';
-				A[N / 9 + 2][M / c + 6] = 'D';
+				if (!_kbhit()) {
+					Sleep(350);
+					A[N / 9 + 4][M / c + 1] = ' ';
+					A[N / 9 + 4][M / c + 2] = ' ';
+					A[N / 9 + 4][M / c + 3] = ' ';
+					A[N / 9 + 4][M / c + 4] = ' ';
+					A[N / 9 + 4][M / c + 5] = ' ';
+					A[N / 9 + 4][M / c + 6] = ' ';
+					A[N / 9 + 4][M / c + 7] = ' ';
+					A[N / 9 + 4][M / c + 8] = ' ';
+					clearscreen();
+					printMenu(A);
+					Sleep(350);
+					A[N / 9 + 4][M / c + 2] = 'R';
+					A[N / 9 + 4][M / c + 3] = 'E';
+					A[N / 9 + 4][M / c + 4] = 'C';
+					A[N / 9 + 4][M / c + 5] = 'O';
+					A[N / 9 + 4][M / c + 6] = 'R';
+					A[N / 9 + 4][M / c + 7] = 'D';
+					A[N / 9 + 4][M / c + 8] = 'S';
+				}
+
 			}
-		}
-		A[N / 9 + 2][M / c + 1] = ' ';
-		break;
-	case 3:
-		if (!_kbhit())
-		{
-			A[N / 9 + 6][M / c + 1] = '>';
-			
-			clearscreen();
-			printMenu(A);
-			if (!_kbhit()) {
-				Sleep(350);
-				A[N / 9 + 6][M / c + 1] = ' ';
-				A[N / 9 + 6][M / c + 2] = ' ';
-				A[N / 9 + 6][M / c + 3] = ' ';
-				A[N / 9 + 6][M / c + 4] = ' ';
-				A[N / 9 + 6][M / c + 5] = ' ';
+
+			A[N / 9 + 4][M / c + 1] = ' ';
+			break;
+		case 1:
+			if (!_kbhit())
+			{
+				A[N / 9 + 2][M / c + 1] = '>';
+
 				clearscreen();
 				printMenu(A);
-				Sleep(350);
-				A[N / 9 + 6][M / c + 2] = 'E';
-				A[N / 9 + 6][M / c + 3] = 'X';
-				A[N / 9 + 6][M / c + 4] = 'I';
-				A[N / 9 + 6][M / c + 5] = 'T';
+				if (!_kbhit()) {
+					Sleep(350);
+					A[N / 9 + 2][M / c + 1] = ' ';
+					A[N / 9 + 2][M / c + 2] = ' ';
+					A[N / 9 + 2][M / c + 3] = ' ';
+					A[N / 9 + 2][M / c + 4] = ' ';
+					A[N / 9 + 2][M / c + 5] = ' ';
+					A[N / 9 + 2][M / c + 6] = ' ';
+					clearscreen();
+					printMenu(A);
+					Sleep(350);
+					A[N / 9 + 2][M / c + 2] = 'S';
+					A[N / 9 + 2][M / c + 3] = 'P';
+					A[N / 9 + 2][M / c + 4] = 'E';
+					A[N / 9 + 2][M / c + 5] = 'E';
+					A[N / 9 + 2][M / c + 6] = 'D';
+				}
 			}
+			A[N / 9 + 2][M / c + 1] = ' ';
+			break;
+		case 3:
+			if (!_kbhit())
+			{
+				A[N / 9 + 6][M / c + 1] = '>';
+
+				clearscreen();
+				printMenu(A);
+				if (!_kbhit()) {
+					Sleep(350);
+					A[N / 9 + 6][M / c + 1] = ' ';
+					A[N / 9 + 6][M / c + 2] = ' ';
+					A[N / 9 + 6][M / c + 3] = ' ';
+					A[N / 9 + 6][M / c + 4] = ' ';
+					A[N / 9 + 6][M / c + 5] = ' ';
+					clearscreen();
+					printMenu(A);
+					Sleep(350);
+					A[N / 9 + 6][M / c + 2] = 'E';
+					A[N / 9 + 6][M / c + 3] = 'X';
+					A[N / 9 + 6][M / c + 4] = 'I';
+					A[N / 9 + 6][M / c + 5] = 'T';
+				}
 
 
+			}
+			A[N / 9 + 6][M / c + 1] = ' ';
+			break;
 		}
-		A[N / 9 + 6][M / c + 1] = ' ';
-		break;
 	}
-
+	A[N / 9 + 6][M / c + 1] = ' ';
+	A[N / 9 + 2][M / c + 1] = ' ';
+	A[N / 9 + 4][M / c + 1] = ' ';
+	A[N / 9 ][M / c + 1] = ' ';
 
 }
+
+void blinkSpeed(char **A, int p)
+{
+	int N = 10;
+	int M = 13;
+	int c = 6;
+
+	if (!_kbhit()) {
+		switch (p)
+		{
+		case 0:
+
+			if (!_kbhit()) {
+				A[N / 9][M / c + 1] = '>';
+
+				clearscreen();
+				printMenu(A);
+				if (!_kbhit()) {
+					Sleep(350);
+					A[N / 9][M / c + 1] = ' ';
+					A[N / 9][M / c + 2] = ' ';
+					A[N / 9][M / c + 3] = ' ';
+					A[N / 9][M / c + 4] = ' ';
+					A[N / 9][M / c + 5] = ' ';
+					clearscreen();
+					printMenu(A);
+					Sleep(350);
+					A[N / 9][M / c + 2] = 'E';
+					A[N / 9][M / c + 3] = 'A';
+					A[N / 9][M / c + 4] = 'S';
+					A[N / 9][M / c + 5] = 'Y';
+				}
+			}
+			A[N / 9][M / c + 1] = ' ';
+
+
+
+
+			break;
+		case 1:
+
+			if (!_kbhit())
+			{
+				A[N / 9 + 2][M / c + 1] = '>';
+
+				clearscreen();
+				printMenu(A);
+				if (!_kbhit()) {
+					Sleep(350);
+					A[N / 9 + 2][M / c + 1] = ' ';
+					A[N / 9 + 2][M / c + 2] = ' ';
+					A[N / 9 + 2][M / c + 3] = ' ';
+					A[N / 9 + 2][M / c + 4] = ' ';
+					A[N / 9 + 2][M / c + 5] = ' ';
+					A[N / 9 + 2][M / c + 6] = ' ';
+					A[N / 9 + 2][M / c + 7] = ' ';
+					clearscreen();
+					printMenu(A);
+					Sleep(350);
+					A[N / 9 + 2][M / c + 2] = 'M';
+					A[N / 9 + 2][M / c + 3] = 'E';
+					A[N / 9 + 2][M / c + 4] = 'D';
+					A[N / 9 + 2][M / c + 5] = 'I';
+					A[N / 9 + 2][M / c + 6] = 'U';
+					A[N / 9 + 2][M / c + 7] = 'M';
+				}
+
+			}
+
+			A[N / 9 + 2][M / c + 1] = ' ';
+			break;
+		case 2:
+			if (!_kbhit())
+			{
+				A[N / 9 + 4][M / c + 1] = '>';
+
+				clearscreen();
+				printMenu(A);
+				if (!_kbhit()) {
+					Sleep(350);
+					A[N / 9 + 4][M / c + 1] = ' ';
+					A[N / 9 + 4][M / c + 2] = ' ';
+					A[N / 9 + 4][M / c + 3] = ' ';
+					A[N / 9 + 4][M / c + 4] = ' ';
+					A[N / 9 + 4][M / c + 5] = ' ';
+					clearscreen();
+					printMenu(A);
+					Sleep(350);
+					A[N / 9 + 4][M / c + 2] = 'H';
+					A[N / 9 + 4][M / c + 3] = 'A';
+					A[N / 9 + 4][M / c + 4] = 'R';
+					A[N / 9 + 4][M / c + 5] = 'D';
+				}
+			}
+			A[N / 9 + 4][M / c + 1] = ' ';
+			break;
+		case 3:
+			if (!_kbhit())
+			{
+				A[N / 9 + 6][M / c + 1] = '>';
+
+				clearscreen();
+				printMenu(A);
+				if (!_kbhit()) {
+					Sleep(350);
+					A[N / 9 + 6][M / c + 1] = ' ';
+					A[N / 9 + 6][M / c + 2] = ' ';
+					A[N / 9 + 6][M / c + 3] = ' ';
+					A[N / 9 + 6][M / c + 4] = ' ';
+					A[N / 9 + 6][M / c + 5] = ' ';
+					A[N / 9 + 6][M / c + 6] = ' ';
+					A[N / 9 + 6][M / c + 7] = ' ';
+					A[N / 9 + 6][M / c + 8] = ' ';
+					clearscreen();
+					printMenu(A);
+					Sleep(350);
+					A[N / 9 + 6][M / c + 2] = 'E';
+					A[N / 9 + 6][M / c + 3] = 'X';
+					A[N / 9 + 6][M / c + 4] = 'T';
+					A[N / 9 + 6][M / c + 5] = 'R';
+					A[N / 9 + 6][M / c + 6] = 'E';
+					A[N / 9 + 6][M / c + 7] = 'M';
+					A[N / 9 + 6][M / c + 8] = 'E';
+				}
+
+
+			}
+			A[N / 9 + 6][M / c + 1] = ' ';
+			break;
+		}
+	}
+	A[N / 9 + 6][M / c + 1] = ' ';
+	A[N / 9 + 2][M / c + 1] = ' ';
+	A[N / 9 + 4][M / c + 1] = ' ';
+	A[N / 9][M / c + 1] = ' ';
+
+}
+
 
 void setMap(char **k, int x, int y)
 {
@@ -487,51 +632,81 @@ char **setMenu()
 
 
 }
-
-void dvig_car(char **a, bool c, bool* cr)
+char **setSpeedMenu()
 {
-	if (c == 0)
+	int N, M;
+
+	N = 10;
+	M = 13;
+	char ** A = new char *[N];
+	for (int i = 0; i < N; i++)
+		A[i] = new char[M];
+
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
+			A[i][j] = ' ';
+	int c = 6;
+	A[N / 9][M / c] = ' ';
+	A[N / 9][M / c + 1] = ' ';
+	A[N / 9][M / c + 2] = 'E';
+	A[N / 9][M / c + 3] = 'A';
+	A[N / 9][M / c + 4] = 'S';
+	A[N / 9][M / c + 5] = 'Y';
+	A[N / 9][M / c + 6] = ' ';
+	A[N / 9 + 2][M / c] = ' ';
+	A[N / 9 + 2][M / c + 1] = ' ';
+	A[N / 9 + 2][M / c + 2] = 'M';
+	A[N / 9 + 2][M / c + 3] = 'E';
+	A[N / 9 + 2][M / c + 4] = 'D';
+	A[N / 9 + 2][M / c + 5] = 'I';
+	A[N / 9 + 2][M / c + 6] = 'U';
+	A[N / 9 + 2][M / c + 7] = 'M';
+	A[N / 9 + 2][M / c + 8] = ' ';
+	A[N / 9 + 4][M / c] = ' ';
+	A[N / 9 + 4][M / c + 1] = ' ';
+	A[N / 9 + 4][M / c + 2] = 'H';
+	A[N / 9 + 4][M / c + 3] = 'A';
+	A[N / 9 + 4][M / c + 4] = 'R';
+	A[N / 9 + 4][M / c + 5] = 'D';
+	A[N / 9 + 4][M / c + 6] = ' ';
+	A[N / 9 + 6][M / c] = ' ';
+	A[N / 9 + 6][M / c + 1] = ' ';
+	A[N / 9 + 6][M / c + 2] = 'E';
+	A[N / 9 + 6][M / c + 3] = 'X';
+	A[N / 9 + 6][M / c + 4] = 'T';
+	A[N / 9 + 6][M / c + 5] = 'R';
+	A[N / 9 + 6][M / c + 6] = 'E';
+	A[N / 9 + 6][M / c + 7] = 'M';
+	A[N / 9 + 6][M / c + 8] = 'E';
+	for (int i = 0; i < N; i++)
 	{
-		for (int j = height + 3; j > height - 1; j--)
+		for (int j = 0; j < M; j++)
 		{
-			if (a[height - 2][3] == '*') { *cr = 1; crushleft(a); break; }
-			for (int i = 5; i < width - 1; i++)
-				a[j][i] = a[j - 1][i];
+			if (i == 0 || i == N - 1)
+				A[i][j] = '*';
+			else
+				if (j == 0 || j == M - 1)
+					A[i][j] = '*';
+
 		}
+
 	}
-	else
-	{
-		for (int j = height + 3; j > height - 1; j--)
-		{
-			if (a[height - 2][6] == '*') { *cr = 1; crushright(a); break; }
-			for (int i = 2; i < width / 2; i++)
-				a[j][i] = a[j - 1][i];
-		}
-	}
-
-
-	for (int j = height - 1; j >0; j--)
-		for (int i = 2; i < width - 1; i++)
-			a[j][i] = a[j - 1][i];
-	for (int i = 2; i < width - 1; i++)
-		a[0][i] = ' ';
-
+	return A;
 }
-
-int MainMenu()
+int speedMenu()
 {
 	int N, M;
 	int P = 0;
 	N = 10;
 	M = 13;
 	int c = 6;
-	char **A = setMenu();
+	char **A = setSpeedMenu();
 	printMenu(A);
 	bool G = true;
 	char tt;
 	while (G == true)
 	{
-		blink(A, P);
+		blinkSpeed(A, P);
 		if (_kbhit())
 		{
 			tt = _gettch();
@@ -543,7 +718,7 @@ int MainMenu()
 				else P = 0;
 				switch (P)
 				{
-				case 0 :
+				case 0:
 					A[N / 9][M / c + 1] = '>';
 					clearscreen();
 					printMenu(A);
@@ -563,9 +738,9 @@ int MainMenu()
 					clearscreen();
 					printMenu(A);
 					break;
-				default :
+				default:
 					break;
-					
+
 				}
 				break;
 
@@ -613,22 +788,163 @@ int MainMenu()
 	for (int i = 0; i < N; i++)
 		delete[] A[i];
 	delete[] A;
+	switch(P)
+	{
+	case 0:
+		return 85;
+		break;
+	case 1:
+		return 65;
+		break;
+	case 2:
+		return 40;
+		break;
+	case 3:
+		return 25;
+		break;
+	default:
+		break;
+	}
+
+}
+void dvig_car(char **a, bool c, bool* cr)
+{
+	if (c == 0)
+	{
+		for (int j = height + 3; j > height - 1; j--)
+		{
+			if (a[height - 2][3] == '*') { *cr = 1; crushleft(a); break; }
+			for (int i = 5; i < width - 1; i++)
+				a[j][i] = a[j - 1][i];
+		}
+	}
+	else
+	{
+		for (int j = height + 3; j > height - 1; j--)
+		{
+			if (a[height - 2][6] == '*') { *cr = 1; crushright(a); break; }
+			for (int i = 2; i < width / 2; i++)
+				a[j][i] = a[j - 1][i];
+		}
+	}
+
+
+	for (int j = height - 1; j >0; j--)
+		for (int i = 2; i < width - 1; i++)
+			a[j][i] = a[j - 1][i];
+	for (int i = 2; i < width - 1; i++)
+		a[0][i] = ' ';
+
+}
+
+int MainMenu(int & SPEED)
+{
+	int N, M;
+	int P = 0;
+	N = 10;
+	M = 13;
+	int c = 6;
+	char **A = setMenu();
+	printMenu(A);
+	bool G = true;
+	char tt;
+	while (G == true)
+	{
+		blink(A, P);
+		if (_kbhit())
+		{
+			tt = _gettch();
+			switch (tt)
+			{
+			case 's':
+				if (P < 3)
+					P++;
+				else P = 0;
+				switch (P)
+				{
+				case 0:
+					A[N / 9][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 1:
+					A[N / 9 + 2][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 2:
+					A[N / 9 + 4][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 3:
+					A[N / 9 + 6][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				default:
+					break;
+
+				}
+				break;
+
+			case 'w':
+				if (P > 0)
+					P--;
+				else P = 3;
+				switch (P)
+				{
+				case 0:
+					A[N / 9][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 1:
+					A[N / 9 + 2][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 2:
+					A[N / 9 + 4][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				case 3:
+					A[N / 9 + 6][M / c + 1] = '>';
+					clearscreen();
+					printMenu(A);
+					break;
+				default:
+					break;
+
+				}
+				break;
+			case VK_RETURN:
+				if (P == 1) 
+				{
+					clearscreen();
+					SPEED=speedMenu();
+				}
+				else
+				
+					G = false;
+				
+				break;
+			default:
+
+				break;
+			}
+		}
+
+	}
+	for (int i = 0; i < N; i++)
+		delete[] A[i];
+	delete[] A;
 	if (P == 3)
 		return 1;
 	return 0;
 
 
-}
-int speed()
-{
-	int move = _getch();
-	switch (move)
-	{
-	case 1: return 80;
-	case 2:	return 200;
-	case 3: return 600;
-	default: return 800;
-	}
 }
 void records(int score)
 {
