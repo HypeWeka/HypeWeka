@@ -68,6 +68,7 @@ int main()
 			else
 			{
 				clearscreen();
+				kscore++;
 				printMap(map, kscore, top);
 				if (kscore % 10 == 0)
 					add_car(map);
@@ -106,7 +107,6 @@ int main()
 						haste(map, kscore, coordinat, &crush, top);
 				}
 				dvig_car(map, coordinat, &crush);
-				kscore++;
 				dvig(map);
 			}
 		}
