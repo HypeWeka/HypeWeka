@@ -37,6 +37,7 @@ void blink(char **a, int p);
 void blinkSpeed(char **a, int p);
 int speedMenu();
 char **setSpeedMenu();
+void empty(int &ts);
 
 int main()
 {
@@ -59,11 +60,7 @@ int main()
 		bool coordinat = 0;
 		bool crush = 0;
 		int top;
-		ifstream rin("records.txt");
-		rin >> top;
-		rin.clear();
-		rin.close();
-		system("cls");
+		empty(top);
 		while (true)
 		{
 			if (crush == 1)
@@ -120,6 +117,15 @@ int main()
 
 	delete[] map;
 	return 0;
+}
+void empty(int &ts)
+{
+	ifstream rin("records.txt");
+	rin >> ts;
+	rin.clear();
+	rin.close();
+	if (ts < 0) ts = 0;
+	system("cls");
 }
 void MoveLeft(char**a, int x, int &y)
 {
@@ -491,7 +497,7 @@ void printrecord(int ikf, int topscore)
 	{
 	case 7:cout << sp; break;
 	case 8:cout << "  +" << s2 << ' ' << topscore;
-		if (topscore < 10)cout << "         +";
+		if (topscore < 10)cout << "        +";
 		else
 			if (topscore < 100) cout << "       +";
 			else
