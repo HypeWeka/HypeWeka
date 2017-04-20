@@ -10,24 +10,28 @@
 
 using namespace std;
 const int height = 20, width = 10;
+const int N = 10, M = 13;
 
 void setMap(char **k, int x, int y);
+void printMap(char **m, int ks, int topscore);
 void printscore(int ikf, int scr);
-void printMap(char **m, int ks);
+void printrecord(int ikf, int topscore);
 void clearscreen();
 void dvig(char **a);
 void add_car(char **a);
 void dvig_car(char **a, bool c, bool* cr);
-void haste(char **a, int &aa, bool c, bool* cr);
+void haste(char **a, int &aa, bool c, bool* cr, int topscore);
 bool preright(char**a);
 bool preleft(char**a);
-void GameOver(int *s);
+void MoveLeft(char**a, int x, int &y);
+void MoveRight(char**a, int x, int &y);
 void crushleft(char**a);
 void crushright(char**a);
 int MainMenu(int & SPEED);
 char **setMenu();
 void printMenu(char **a);
-
+void RecordsMenu();
+void GameOver(int *s);
 void records(int score);
 void blink(char **a, int p);
 void blinkSpeed(char **a, int p);
@@ -54,6 +58,11 @@ int main()
 		int kscore = 0;
 		bool coordinat = 0;
 		bool crush = 0;
+		int top;
+		ifstream rin("records.txt");
+		rin >> top;
+		rin.clear();
+		rin.close();
 		system("cls");
 		while (true)
 		{
@@ -62,7 +71,7 @@ int main()
 			else
 			{
 				clearscreen();
-				printMap(map, kscore);
+				printMap(map, kscore, top);
 				if (kscore % 10 == 0)
 					add_car(map);
 				Sleep(speed);
@@ -77,23 +86,7 @@ int main()
 							crushleft(map);
 							break;
 						}
-						for (int u = 2; u >= -1; u--)
-							map[x + 3][y - u] = ' ';
-						map[x + 1][y - 1] = ' ';
-						map[x + 3][y - 1] = ' ';
-						map[x][y] = ' ';
-						map[x + 1][y] = ' ';
-						map[x + 2][y] = ' ';
-						map[x + 1][y + 1] = ' ';
-						map[x + 3][y + 1] = ' ';
-						map[x + 1][y + 2] = '*';
-						map[x + 3][y + 2] = '*';
-						map[x][y + 3] = '*';
-						map[x + 1][y + 3] = '*';
-						map[x + 2][y + 3] = '*';
-						map[x + 1][y + 4] = '*';
-						map[x + 3][y + 4] = '*';
-						y += 3;
+						MoveRight(map, x, y);
 
 					}
 
@@ -105,33 +98,15 @@ int main()
 							crushright(map);
 							break;
 						}
-						map[x + 1][y + 1] = ' ';
-						map[x + 3][y + 1] = ' ';
-						map[x][y] = ' ';
-						map[x + 1][y] = ' ';
-						map[x + 2][y] = ' ';
-						map[x + 1][y - 1] = ' ';
-						map[x + 3][y - 1] = ' ';
-						map[x + 1][y - 4] = '*';
-						map[x + 3][y - 4] = '*';
-						map[x][y - 3] = '*';
-						map[x + 1][y - 3] = '*';
-						map[x + 2][y - 3] = '*';
-						map[x + 1][y - 2] = '*';
-						map[x + 3][y - 2] = '*';
-						for (int q = 1; q >= -2; q--)
-							for (int z = -3; z <= 0; z++)
-								map[x - z][y - q] = ' ';
-						y -= 3;
-
+						MoveLeft(map, x, y);
 					}
 					if (move == VK_SPACE)
-						haste(map, kscore, coordinat, &crush);
+						haste(map, kscore, coordinat, &crush, top);
 				}
 				if (_kbhit()) {
 					move = _getch();
 					if (move == VK_SPACE)
-						haste(map, kscore, coordinat, &crush);
+						haste(map, kscore, coordinat, &crush, top);
 				}
 				dvig_car(map, coordinat, &crush);
 				kscore++;
@@ -145,6 +120,47 @@ int main()
 
 	delete[] map;
 	return 0;
+}
+void MoveLeft(char**a, int x, int &y)
+{
+	a[x + 1][y + 1] = ' ';
+	a[x + 3][y + 1] = ' ';
+	a[x][y] = ' ';
+	a[x + 1][y] = ' ';
+	a[x + 2][y] = ' ';
+	a[x + 1][y - 1] = ' ';
+	a[x + 3][y - 1] = ' ';
+	a[x + 1][y - 4] = '*';
+	a[x + 3][y - 4] = '*';
+	a[x][y - 3] = '*';
+	a[x + 1][y - 3] = '*';
+	a[x + 2][y - 3] = '*';
+	a[x + 1][y - 2] = '*';
+	a[x + 3][y - 2] = '*';
+	for (int q = 1; q >= -2; q--)
+		for (int z = -3; z <= 0; z++)
+			a[x - z][y - q] = ' ';
+	y -= 3;
+}
+void MoveRight(char**a, int x, int &y)
+{
+	for (int u = 2; u >= -1; u--)
+		a[x + 3][y - u] = ' ';
+	a[x + 1][y - 1] = ' ';
+	a[x + 3][y - 1] = ' ';
+	a[x][y] = ' ';
+	a[x + 1][y] = ' ';
+	a[x + 2][y] = ' ';
+	a[x + 1][y + 1] = ' ';
+	a[x + 3][y + 1] = ' ';
+	a[x + 1][y + 2] = '*';
+	a[x + 3][y + 2] = '*';
+	a[x][y + 3] = '*';
+	a[x + 1][y + 3] = '*';
+	a[x + 2][y + 3] = '*';
+	a[x + 1][y + 4] = '*';
+	a[x + 3][y + 4] = '*';
+	y += 3;
 }
 void blink(char **A, int p)
 {
@@ -279,10 +295,9 @@ void blink(char **A, int p)
 	A[N / 9 + 6][M / c + 1] = ' ';
 	A[N / 9 + 2][M / c + 1] = ' ';
 	A[N / 9 + 4][M / c + 1] = ' ';
-	A[N / 9 ][M / c + 1] = ' ';
+	A[N / 9][M / c + 1] = ' ';
 
 }
-
 void blinkSpeed(char **A, int p)
 {
 	int N = 10;
@@ -419,8 +434,6 @@ void blinkSpeed(char **A, int p)
 	A[N / 9][M / c + 1] = ' ';
 
 }
-
-
 void setMap(char **k, int x, int y)
 {
 	for (int i = 0; i<height + 4; i++)
@@ -470,6 +483,25 @@ bool preleft(char**a)
 		if (a[j][3] == '*')
 			return 0;
 }
+void printrecord(int ikf, int topscore)
+{
+	string s2 = " T O P:";
+	string sp = "  + + + + + + + + + +";
+	switch (ikf)
+	{
+	case 7:cout << sp; break;
+	case 8:cout << "  +" << s2 << ' ' << topscore;
+		if (topscore < 10)cout << "         +";
+		else
+			if (topscore < 100) cout << "       +";
+			else
+				if (topscore < 1000) cout << "      +";
+				else
+					if (topscore < 10000) cout << "     +";
+		break;
+	case 9:cout << sp; break;
+	}
+}
 void printscore(int ikf, int scr)
 {
 	string s1 = " 61th R O A D  R A C E ";
@@ -511,7 +543,7 @@ void printline()
 	string s = "==========";
 	cout << s;
 }
-void printMap(char **m, int ks)
+void printMap(char **m, int ks, int topscore)
 {
 	for (int i = 4; i<height + 4; i++)
 	{
@@ -519,6 +551,7 @@ void printMap(char **m, int ks)
 		{
 			cout << m[i][j];
 		}
+		printrecord(i, topscore);
 		printscore(i, ks);
 		cout << endl;
 	}
@@ -574,10 +607,6 @@ void add_car(char **a)
 }
 char **setMenu()
 {
-	int N, M;
-
-	N = 10;
-	M = 13;
 	char ** A = new char *[N];
 	for (int i = 0; i < N; i++)
 		A[i] = new char[M];
@@ -634,10 +663,6 @@ char **setMenu()
 }
 char **setSpeedMenu()
 {
-	int N, M;
-
-	N = 10;
-	M = 13;
 	char ** A = new char *[N];
 	for (int i = 0; i < N; i++)
 		A[i] = new char[M];
@@ -693,12 +718,94 @@ char **setSpeedMenu()
 	}
 	return A;
 }
+void RecordsMenu()
+{
+	system("cls");
+	int n = 5;
+	int* data = new int[n];
+	ifstream rin("records.txt");
+	for (int i = 0; i < n; i++)
+		rin >> data[i];
+	rin.clear();
+	rin.close();
+	char ** A = new char *[N];
+	for (int i = 0; i < N; i++)
+		A[i] = new char[M];
+
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
+			A[i][j] = ' ';
+	int c = 6;
+	int x = data[0];
+	int xk = 4;
+	int l = 0;
+	while (x > 0)
+	{
+		A[N / 9 + 2 * l][M / c + xk] = (x % 10) + '0';
+		x /= 10;
+		xk++;
+		if (x == 0)
+		{
+			switch (xk - 4)
+			{
+			case 2:
+				char tmp1;
+				tmp1 = A[N / 9 + 2 * l][M / c + xk - 2];
+				A[N / 9 + 2 * l][M / c + xk - 2] = A[N / 9 + 2 * l][M / c + xk - 1];
+				A[N / 9 + 2 * l][M / c + xk - 1] = tmp1;
+				break;
+			case 3:
+				char tmp2;
+				tmp2 = A[N / 9 + 2 * l][M / c + xk - 1];
+				A[N / 9 + 2 * l][M / c + xk - 1] = A[N / 9 + 2 * l][M / c + xk - 3];
+				A[N / 9 + 2 * l][M / c + xk - 3] = tmp2;
+				break;
+			case 4:
+				char tmp3;
+				tmp3 = A[N / 9 + 2 * l][M / c + xk - 1];
+				A[N / 9 + 2 * l][M / c + xk - 1] = A[N / 9 + 2 * l][M / c + xk - 4];
+				A[N / 9 + 2 * l][M / c + xk - 4] = tmp3;
+				tmp3 = A[N / 9 + 2 * l][M / c + xk - 2];
+				A[N / 9 + 2 * l][M / c + xk - 2] = A[N / 9 + 2 * l][M / c + xk - 3];
+				A[N / 9 + 2 * l][M / c + xk - 3] = tmp3;
+				break;
+			default: break;
+			}
+			l++;
+			if (l == 6)
+				break;
+			xk = 4;
+			x = data[l];
+		}
+
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		A[N / 9 + 2 * i][M / c + 2] = i + 1 + '0';
+		A[N / 9 + 2 * i][M / c + 3] = '.';
+	}
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < M; j++)
+		{
+			if (i == 0 || i == N - 1)
+				A[i][j] = '*';
+			else
+				if (j == 0 || j == M - 1)
+					A[i][j] = '*';
+
+		}
+
+	}
+	printMenu(A);
+
+	delete[]data;
+	delete[]A;
+	_gettch();
+}
 int speedMenu()
 {
-	int N, M;
 	int P = 0;
-	N = 10;
-	M = 13;
 	int c = 6;
 	char **A = setSpeedMenu();
 	printMenu(A);
@@ -788,7 +895,7 @@ int speedMenu()
 	for (int i = 0; i < N; i++)
 		delete[] A[i];
 	delete[] A;
-	switch(P)
+	switch (P)
 	{
 	case 0:
 		return 85;
@@ -836,13 +943,9 @@ void dvig_car(char **a, bool c, bool* cr)
 		a[0][i] = ' ';
 
 }
-
 int MainMenu(int & SPEED)
 {
-	int N, M;
 	int P = 0;
-	N = 10;
-	M = 13;
 	int c = 6;
 	char **A = setMenu();
 	printMenu(A);
@@ -920,15 +1023,19 @@ int MainMenu(int & SPEED)
 				}
 				break;
 			case VK_RETURN:
-				if (P == 1) 
+				if (P == 1)
 				{
 					clearscreen();
-					SPEED=speedMenu();
+					SPEED = speedMenu();
 				}
 				else
-				
-					G = false;
-				
+					if (P == 2)
+					{
+						clearscreen();
+						RecordsMenu();
+					}
+					else
+						G = false;
 				break;
 			default:
 
@@ -955,7 +1062,14 @@ void records(int score)
 		rin >> data[i];
 	if (data[n - 1] < score)
 		data[n - 1] = score;
-	else return;
+	else
+	{
+		rin.clear();
+		rin.close();
+		return;
+	}
+	rin.clear();
+	rin.close();
 	for (int i = n - 2; i > -1; i--)
 	{
 		if (data[i + 1] > data[i])
@@ -972,8 +1086,7 @@ void records(int score)
 	rout.close();
 	delete[]data;
 }
-
-void haste(char **a, int &aa, bool c, bool* cr)
+void haste(char **a, int &aa, bool c, bool* cr, int ts)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -990,7 +1103,7 @@ void haste(char **a, int &aa, bool c, bool* cr)
 			break;
 		}
 		clearscreen();
-		printMap(a, aa);
+		printMap(a, aa, ts);
 	}
 }
 void GameOver(int *s)
@@ -1145,9 +1258,6 @@ void crushleft(char**a)
 }
 void printMenu(char **a)
 {
-	int N, M;
-	N = 10;
-	M = 13;
 	for (int i = 0; i < N; i++)
 	{
 		for (int j = 0; j < M; j++)
