@@ -29,6 +29,7 @@ void crushleft(char**a);
 void crushright(char**a);
 int MainMenu(int & SPEED);
 char **setMenu();
+void countdown(char **a, int score, int top1);
 void printMenu(char **a);
 void RecordsMenu();
 void GameOver(int *s);
@@ -61,6 +62,7 @@ int main()
 		bool crush = 0;
 		int top;
 		empty(top);
+		countdown(map, kscore, top);
 		while (true)
 		{
 			if (crush == 1)
@@ -68,7 +70,7 @@ int main()
 			else
 			{
 				clearscreen();
-				kscore++;
+				
 				printMap(map, kscore, top);
 				if (kscore % 10 == 0)
 					add_car(map);
@@ -106,10 +108,12 @@ int main()
 					if (move == VK_SPACE)
 						haste(map, kscore, coordinat, &crush, top);
 				}
+				kscore++;
 				dvig_car(map, coordinat, &crush);
 				dvig(map);
 			}
 		}
+		kscore--;
 		clearscreen();
 		GameOver(&kscore);
 		system("cls");
@@ -1301,4 +1305,358 @@ void printMenu(char **a)
 		cout << endl;
 
 	}
+}
+void countdown(char **a, int score, int top1)
+{
+	a[height - 11][width - 8] = '*';
+	a[height - 12][width - 8] = '*';
+	a[height - 13][width - 8] = '*';
+	a[height - 14][width - 8] = '*';
+	a[height - 14][width - 7] = '*';
+	a[height - 14][width - 6] = '*';
+	a[height - 14][width - 5] = '*';
+	a[height - 14][width - 4] = '*';
+	a[height - 14][width - 3] = '*';
+	a[height - 13][width - 3] = '*';
+	a[height - 12][width - 3] = '*';
+	a[height - 11][width - 3] = '*';
+	a[height - 10][width - 3] = '*';
+	a[height - 9][width - 3] = '*';
+	a[height - 8][width - 3] = '*';
+	a[height - 8][width - 4] = '*';
+	a[height - 8][width - 5] = '*';
+	a[height - 8][width - 6] = '*';
+	a[height - 7][width - 3] = '*';
+	a[height - 6][width - 3] = '*';
+	a[height - 5][width - 3] = '*';
+	a[height - 4][width - 3] = '*';
+	a[height - 3][width - 3] = '*';
+	a[height - 2][width - 3] = '*';
+	a[height - 2][width - 4] = '*';
+	a[height - 2][width - 5] = '*';
+	a[height - 2][width - 6] = '*';
+	a[height - 2][width - 7] = '*';
+	a[height - 2][width - 8] = '*';
+	a[height - 3][width - 8] = '*';
+	a[height - 4][width - 8] = '*';
+	a[height - 5][width - 8] = '*';
+
+	clearscreen();
+	printMap(a, score, top1);
+
+	Sleep(333);
+
+	a[height - 11][width - 8] = ' ';
+	a[height - 12][width - 8] = ' ';
+	a[height - 13][width - 8] = ' ';
+	a[height - 14][width - 8] = ' ';
+	a[height - 14][width - 7] = ' ';
+	a[height - 14][width - 6] = ' ';
+	a[height - 14][width - 5] = ' ';
+	a[height - 14][width - 4] = ' ';
+	a[height - 14][width - 3] = ' ';
+	a[height - 13][width - 3] = ' ';
+	a[height - 12][width - 3] = ' ';
+	a[height - 11][width - 3] = ' ';
+	a[height - 10][width - 3] = ' ';
+	a[height - 9][width - 3] = ' ';
+	a[height - 8][width - 3] = ' ';
+	a[height - 8][width - 4] = ' ';
+	a[height - 8][width - 5] = ' ';
+	a[height - 8][width - 6] = ' ';
+	a[height - 7][width - 3] = ' ';
+	a[height - 6][width - 3] = ' ';
+	a[height - 5][width - 3] = ' ';
+	a[height - 4][width - 3] = ' ';
+	a[height - 3][width - 3] = ' ';
+	a[height - 2][width - 3] = ' ';
+	a[height - 2][width - 4] = ' ';
+	a[height - 2][width - 5] = ' ';
+	a[height - 2][width - 6] = ' ';
+	a[height - 2][width - 7] = ' ';
+	a[height - 2][width - 8] = ' ';
+	a[height - 3][width - 8] = ' ';
+	a[height - 4][width - 8] = ' ';
+	a[height - 5][width - 8] = ' ';
+
+	a[height - 10][width - 7] = '*';
+	a[height - 11][width - 7] = '*';
+	a[height - 12][width - 7] = '*';
+	a[height - 12][width - 7] = '*';
+	a[height - 12][width - 6] = '*';
+	a[height - 12][width - 5] = '*';
+	a[height - 12][width - 4] = '*';
+	a[height - 11][width - 4] = '*';
+	a[height - 10][width - 4] = '*';
+	a[height - 9][width - 4] = '*';
+	a[height - 8][width - 4] = '*';
+	a[height - 8][width - 5] = '*';
+	a[height - 8][width - 6] = '*';
+	a[height - 7][width - 4] = '*';
+	a[height - 6][width - 4] = '*';
+	a[height - 5][width - 4] = '*';
+	a[height - 4][width - 4] = '*';
+	a[height - 4][width - 5] = '*';
+	a[height - 4][width - 6] = '*';
+	a[height - 4][width - 7] = '*';
+	a[height - 5][width - 7] = '*';
+	a[height - 6][width - 7] = '*';
+
+	clearscreen();
+	printMap(a, score, top1);
+
+	Sleep(333);
+
+	a[height - 10][width - 7] = ' ';
+	a[height - 11][width - 7] = ' ';
+	a[height - 12][width - 7] = ' ';
+	a[height - 12][width - 7] = ' ';
+	a[height - 12][width - 6] = ' ';
+	a[height - 12][width - 5] = ' ';
+	a[height - 12][width - 4] = ' ';
+	a[height - 11][width - 4] = ' ';
+	a[height - 10][width - 4] = ' ';
+	a[height - 9][width - 4] = ' ';
+	a[height - 8][width - 4] = ' ';
+	a[height - 8][width - 5] = ' ';
+	a[height - 8][width - 6] = ' ';
+	a[height - 7][width - 4] = ' ';
+	a[height - 6][width - 4] = ' ';
+	a[height - 5][width - 4] = ' ';
+	a[height - 4][width - 4] = ' ';
+	a[height - 4][width - 5] = ' ';
+	a[height - 4][width - 6] = ' ';
+	a[height - 4][width - 7] = ' ';
+	a[height - 5][width - 7] = ' ';
+	a[height - 6][width - 7] = ' ';
+
+	a[height - 9][width - 7] = '*';
+	a[height - 10][width - 7] = '*';
+	a[height - 10][width - 6] = '*';
+	a[height - 10][width - 5] = '*';
+	a[height - 9][width - 5] = '*';
+	a[height - 8][width - 5] = '*';
+	a[height - 8][width - 6] = '*';
+	a[height - 7][width - 5] = '*';
+	a[height - 6][width - 5] = '*';
+	a[height - 6][width - 6] = '*';
+	a[height - 6][width - 7] = '*';
+	a[height - 7][width - 7] = '*';
+
+
+	clearscreen();
+	printMap(a, score, top1);
+
+	Sleep(333);
+
+	a[height - 9][width - 7] = ' ';
+	a[height - 10][width - 7] = ' ';
+	a[height - 10][width - 6] = ' ';
+	a[height - 10][width - 5] = ' ';
+	a[height - 9][width - 5] = ' ';
+	a[height - 8][width - 5] = ' ';
+	a[height - 8][width - 6] = ' ';
+	a[height - 7][width - 5] = ' ';
+	a[height - 6][width - 5] = ' ';
+	a[height - 6][width - 6] = ' ';
+	a[height - 6][width - 7] = ' ';
+	a[height - 7][width - 7] = ' ';
+
+	a[height - 9][width - 8] = '*';
+	a[height - 10][width - 8] = '*';
+	a[height - 11][width - 8] = '*';
+	a[height - 12][width - 8] = '*';
+	a[height - 13][width - 8] = '*';
+	a[height - 14][width - 8] = '*';
+	a[height - 14][width - 6] = '*';
+	a[height - 14][width - 7] = '*';
+	a[height - 14][width - 5] = '*';
+	a[height - 14][width - 4] = '*';
+	a[height - 14][width - 3] = '*';
+	a[height - 13][width - 3] = '*';
+	a[height - 12][width - 3] = '*';
+	a[height - 11][width - 3] = '*';
+	a[height - 10][width - 3] = '*';
+	a[height - 9][width - 3] = '*';
+	a[height - 8][width - 3] = '*';
+	a[height - 7][width - 4] = '*';
+	a[height - 6][width - 5] = '*';
+	a[height - 5][width - 6] = '*';
+	a[height - 4][width - 7] = '*';
+	a[height - 3][width - 8] = '*';
+	a[height - 2][width - 8] = '*';
+	a[height - 2][width - 7] = '*';
+	a[height - 2][width - 6] = '*';
+	a[height - 2][width - 5] = '*';
+	a[height - 2][width - 4] = '*';
+	a[height - 2][width - 3] = '*';
+
+	clearscreen();
+	printMap(a, score, top1);
+
+	Sleep(333);
+
+
+
+	a[height - 9][width - 8] = ' ';
+	a[height - 10][width - 8] = ' ';
+	a[height - 11][width - 8] = ' ';
+	a[height - 12][width - 8] = ' ';
+	a[height - 13][width - 8] = ' ';
+	a[height - 14][width - 8] = ' ';
+	a[height - 14][width - 6] = ' ';
+	a[height - 14][width - 7] = ' ';
+	a[height - 14][width - 5] = ' ';
+	a[height - 14][width - 4] = ' ';
+	a[height - 14][width - 3] = ' ';
+	a[height - 13][width - 3] = ' ';
+	a[height - 12][width - 3] = ' ';
+	a[height - 11][width - 3] = ' ';
+	a[height - 10][width - 3] = ' ';
+	a[height - 9][width - 3] = ' ';
+	a[height - 8][width - 3] = ' ';
+	a[height - 7][width - 4] = ' ';
+	a[height - 6][width - 5] = ' ';
+	a[height - 5][width - 6] = ' ';
+	a[height - 4][width - 7] = ' ';
+	a[height - 3][width - 8] = ' ';
+	a[height - 2][width - 8] = ' ';
+	a[height - 2][width - 7] = ' ';
+	a[height - 2][width - 6] = ' ';
+	a[height - 2][width - 5] = ' ';
+	a[height - 2][width - 4] = ' ';
+	a[height - 2][width - 3] = ' ';
+
+	a[height - 9][width - 7] = '*';
+	a[height - 10][width - 7] = '*';
+	a[height - 11][width - 7] = '*';
+	a[height - 12][width - 7] = '*';
+	a[height - 12][width - 6] = '*';
+	a[height - 12][width - 5] = '*';
+	a[height - 12][width - 4] = '*';
+	a[height - 11][width - 4] = '*';
+	a[height - 10][width - 4] = '*';
+	a[height - 9][width - 4] = '*';
+	a[height - 8][width - 4] = '*';
+	a[height - 7][width - 5] = '*';
+	a[height - 6][width - 6] = '*';
+	a[height - 5][width - 7] = '*';
+	a[height - 4][width - 7] = '*';
+	a[height - 4][width - 6] = '*';
+	a[height - 4][width - 5] = '*';
+	a[height - 4][width - 4] = '*';
+
+	clearscreen();
+	printMap(a, score, top1);
+
+	Sleep(333);
+
+	a[height - 10][width - 7] = ' ';
+	a[height - 11][width - 7] = ' ';
+	a[height - 12][width - 7] = ' ';
+	a[height - 12][width - 6] = ' ';
+	a[height - 12][width - 5] = ' ';
+	a[height - 12][width - 4] = ' ';
+	a[height - 11][width - 4] = ' ';
+	a[height - 10][width - 4] = ' ';
+	a[height - 9][width - 4] = ' ';
+	a[height - 8][width - 4] = ' ';
+	a[height - 7][width - 5] = ' ';
+	a[height - 6][width - 6] = ' ';
+	a[height - 5][width - 7] = ' ';
+	a[height - 4][width - 7] = ' ';
+	a[height - 4][width - 6] = ' ';
+	a[height - 4][width - 5] = ' ';
+	a[height - 4][width - 4] = ' ';
+
+
+	a[height - 9][width - 7] = '*';
+	a[height - 10][width - 7] = '*';
+	a[height - 10][width - 6] = '*';
+	a[height - 10][width - 5] = '*';
+	a[height - 9][width - 5] = '*';
+	a[height - 8][width - 5] = '*';
+	a[height - 7][width - 6] = '*';
+	a[height - 6][width - 7] = '*';
+	a[height - 6][width - 6] = '*';
+	a[height - 6][width - 5] = '*';
+
+
+	clearscreen();
+	printMap(a, score, top1);
+
+	Sleep(333);
+
+	a[height - 9][width - 7] = ' ';
+	a[height - 10][width - 7] = ' ';
+	a[height - 10][width - 6] = ' ';
+	a[height - 10][width - 5] = ' ';
+	a[height - 9][width - 5] = ' ';
+	a[height - 8][width - 5] = ' ';
+	a[height - 7][width - 6] = ' ';
+	a[height - 6][width - 7] = ' ';
+	a[height - 6][width - 6] = ' ';
+	a[height - 6][width - 5] = ' ';
+
+	a[height - 11][width - 8] = '*';
+	a[height - 12][width - 7] = '*';
+	a[height - 13][width - 6] = '*';
+	a[height - 14][width - 5] = '*';
+	a[height - 13][width - 5] = '*';
+	a[height - 12][width - 5] = '*';
+	a[height - 11][width - 5] = '*';
+	a[height - 10][width - 5] = '*';
+	a[height - 9][width - 5] = '*';
+	a[height - 8][width - 5] = '*';
+	a[height - 7][width - 5] = '*';
+	a[height - 6][width - 5] = '*';
+	a[height - 5][width - 5] = '*';
+	a[height - 4][width - 5] = '*';
+	a[height - 3][width - 5] = '*';
+	a[height - 2][width - 5] = '*';
+
+	clearscreen();
+	printMap(a, score, top1);
+
+	Sleep(333);
+
+	a[height - 11][width - 8] = ' ';
+	a[height - 12][width - 7] = ' ';
+	a[height - 13][width - 6] = ' ';
+	a[height - 14][width - 5] = ' ';
+	a[height - 13][width - 5] = ' ';
+	a[height - 3][width - 5] = ' ';
+	a[height - 2][width - 5] = ' ';
+
+	a[height - 11][width - 6] = '*';
+	a[height - 10][width - 7] = '*';
+
+
+	clearscreen();
+	printMap(a, score, top1);
+
+	Sleep(333);
+
+	a[height - 11][width - 6] = ' ';
+	a[height - 10][width - 7] = ' ';
+	a[height - 12][width - 5] = ' ';
+	a[height - 11][width - 5] = ' ';
+	a[height - 4][width - 5] = ' ';
+	a[height - 5][width - 5] = ' ';
+
+	a[height - 9][width - 6] = '*';
+	a[height - 8][width - 7] = '*';
+
+	clearscreen();
+	printMap(a, score, top1);
+
+	Sleep(333);
+
+	a[height - 9][width - 6] = ' ';
+	a[height - 8][width - 7] = ' ';
+	a[height - 10][width - 5] = ' ';
+	a[height - 9][width - 5] = ' ';
+	a[height - 8][width - 5] = ' ';
+	a[height - 7][width - 5] = ' ';
+	a[height - 6][width - 5] = ' ';
 }
