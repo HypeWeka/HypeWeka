@@ -108,9 +108,12 @@ int main()
 					if (move == VK_SPACE)
 						haste(map, kscore, coordinat, &crush, top);
 				}
-				kscore++;
-				dvig_car(map, coordinat, &crush);
-				dvig(map);
+				if (crush == 0)
+				{
+					kscore++;
+					dvig_car(map, coordinat, &crush);
+					dvig(map);
+				}
 			}
 		}
 		kscore--;
@@ -1642,7 +1645,6 @@ void countdown(char **a, int score, int top1)
 	a[height - 12][width - 5] = ' ';
 	a[height - 11][width - 5] = ' ';
 	a[height - 4][width - 5] = ' ';
-	a[height - 5][width - 5] = ' ';
 
 	a[height - 9][width - 6] = '*';
 	a[height - 8][width - 7] = '*';
@@ -1659,4 +1661,5 @@ void countdown(char **a, int score, int top1)
 	a[height - 8][width - 5] = ' ';
 	a[height - 7][width - 5] = ' ';
 	a[height - 6][width - 5] = ' ';
+	a[height - 5][width - 5] = ' ';
 }
