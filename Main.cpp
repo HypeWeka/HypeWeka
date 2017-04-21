@@ -724,10 +724,37 @@ char **setSpeedMenu()
 	}
 	return A;
 }
+void RecordBlink(char**a, int cn)
+{
+	while (1)
+	{
+		clearscreen();
+		printMenu(a);
+		if (!_kbhit())
+		{
+			Sleep(350);
+			a[N / 9 + 6][M / cn + 2] = '>';
+			a[N / 9 + 6][M / cn + 3] = 'B';
+			a[N / 9 + 6][M / cn + 4] = 'A';
+			a[N / 9 + 6][M / cn + 5] = 'C';
+			a[N / 9 + 6][M / cn + 6] = 'K';
+			clearscreen();
+			printMenu(a);
+			Sleep(350);
+			a[N / 9 + 6][M / cn + 2] = ' ';
+			a[N / 9 + 6][M / cn + 3] = ' ';
+			a[N / 9 + 6][M / cn + 4] = ' ';
+			a[N / 9 + 6][M / cn + 5] = ' ';
+			a[N / 9 + 6][M / cn + 6] = ' ';
+		}
+		else
+			break;
+	}
+}
 void RecordsMenu()
 {
 	system("cls");
-	int n = 5;
+	int n = 3;
 	int* data = new int[n];
 	ifstream rin("records.txt");
 	for (int i = 0; i < n; i++)
@@ -785,7 +812,7 @@ void RecordsMenu()
 		}
 
 	}
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		A[N / 9 + 2 * i][M / c + 2] = i + 1 + '0';
 		A[N / 9 + 2 * i][M / c + 3] = '.';
@@ -803,7 +830,7 @@ void RecordsMenu()
 		}
 
 	}
-	printMenu(A);
+	RecordBlink(A, c);
 
 	delete[]data;
 	delete[]A;
@@ -1061,7 +1088,7 @@ int MainMenu(int & SPEED)
 }
 void records(int score)
 {
-	int n = 5;
+	int n = 3;
 	int* data = new int[n];
 	ifstream rin("records.txt");
 	for (int i = 0; i < n; i++)
