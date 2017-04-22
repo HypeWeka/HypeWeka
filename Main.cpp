@@ -78,7 +78,7 @@ int main()
 				if (_kbhit()) {
 					move = _getch();
 
-					if ((move == 'd' && y < width - 5) || (move == 'D' && y < width - 5))
+					if ((move == 68 && y < width - 5) || (move == 100 && y < width - 5))
 					{
 						coordinat = 1;
 						if (preright(map) == 0)
@@ -90,7 +90,7 @@ int main()
 
 					}
 
-					if ((move == 'a' && y > width - 5) || (move == 'A' && y > width - 5))
+					if ((move == 65 && y > width - 5) || (move == 97 && y > width - 5))
 					{
 						coordinat = 0;
 						if (preleft(map) == 0)
@@ -100,12 +100,13 @@ int main()
 						}
 						MoveLeft(map, x, y);
 					}
-					if (move == VK_SPACE)
+					if (move == VK_SPACE )
 						haste(map, kscore, coordinat, &crush, top);
 				}
 				if (_kbhit()) {
 					move = _getch();
-					if (move == VK_SPACE)
+					if (move == VK_SPACE && crush==0)
+
 						haste(map, kscore, coordinat, &crush, top);
 				}
 				if (crush == 0)
@@ -990,7 +991,7 @@ int MainMenu(int & SPEED)
 	char **A = setMenu();
 	printMenu(A);
 	bool G = true;
-	char tt;
+	char tt ;
 	while (G == true)
 	{
 		blink(A, P);
@@ -1163,7 +1164,7 @@ void GameOver(int *s)
 
 	cout << "\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n*              *\n****************\n";
 	records(*s);
-	_gettch();
+	Sleep(2500);
 }
 void crushright(char**a)
 {
